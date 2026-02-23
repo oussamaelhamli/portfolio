@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oussama El Hamli</title>
+<style>
+@font-face {
+  font-family: 'Raleway';
+  src: url('Raleway-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+</style>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:100vw; height:100vh; overflow:hidden;
+  background:#ffffff;
+  font-family:"Raleway","Helvetica Neue",sans-serif;
+  cursor:none; user-select:none; -webkit-font-smoothing:antialiased;
+}
+img, video { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
+
+#cur {
+  position:fixed;z-index:9999;width:8px;height:8px;border-radius:50%;
+  background:#0a0a0a;pointer-events:none;transform:translate(-50%,-50%);
+  transition:width .18s,height .18s,background .15s,border .15s;top:0;left:0;
+}
+#cur.drag{width:44px;height:44px;background:transparent;border:1.5px solid #0a0a0a;}
+#cur.link{width:28px;height:28px;background:transparent;border:1.5px solid #0a0a0a;}
+#cur.light{background:#fff;}
+#cur.light.drag{background:transparent;border-color:#fff;}
+#cur.light.link{background:transparent;border-color:#fff;}
+
+nav {
+  position:fixed;top:0;left:0;right:0;padding:22px 36px;
+  display:flex;align-items:center;justify-content:space-between;z-index:850;
+  transition:background 0.3s ease, border-bottom 0.3s ease;
+}
+nav.solid {
+  background:rgba(245,244,240,0.55);
+  border-bottom:1px solid rgba(224,221,216,0.4);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  padding-top:14px;
+  padding-bottom:14px;
+}
+nav a {
+  font-size:clamp(16px, 2.2vw, 32px);letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;
+  font-family:"Raleway",sans-serif;font-weight:100;
+  background:linear-gradient(to bottom,#3a3a3a 0%,#a0a0a0 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  pointer-events:all;line-height:1;
+}
+nav a:hover{opacity:.5;}
+.nav-mid{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:48px;align-items:center;}
+#nav-project {
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:#2a2a2a;margin-left:18px;
+  opacity:0;transform:translateY(6px);
+  transition:opacity .4s ease, transform .4s ease;
+  display:inline-block;vertical-align:middle;
+  -webkit-text-fill-color:#2a2a2a;background:none;
+  text-shadow:0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.6);
+}
+#nav-project.visible{opacity:1;transform:translateY(0);}
+#clock{font-family:"Courier New",monospace;font-size:clamp(10px, 1.1vw, 16px);color:#aaa;letter-spacing:.05em;transition:opacity 0.3s ease;}
+#clock.hidden{opacity:0;pointer-events:none;}
+
+footer {
+  position:fixed;bottom:0;left:0;right:0;padding:20px 36px;
+  display:flex;justify-content:space-between;align-items:flex-end;z-index:500;pointer-events:none;
+}
+.f-left p,.f-left a,.f-right a {
+  display:block;font-size:10px;color:#aaa;text-decoration:none;line-height:1.9;
+  pointer-events:all;transition:color .2s;
+}
+.f-left a:hover,.f-right a:hover{color:#0a0a0a;}
+.f-right{text-align:right;}
+
+#scene {
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  z-index:10;touch-action:none;transform-style:preserve-3d;
+}
+#camera{width:0;height:0;transform-style:preserve-3d;will-change:transform;}
+#ring {
+  position:absolute;width:0;height:0;transform-style:preserve-3d;
+  transform:rotateY(0deg);will-change:transform;
+}
+.slot{position:absolute;transform-style:preserve-3d;}
+.face {
+  position:absolute;border-radius:3px;overflow:hidden;
+  backface-visibility:hidden;cursor:none;
+  box-shadow:0 4px 24px rgba(0,0,0,.12),0 1px 4px rgba(0,0,0,.08);
+  transition:opacity .4s ease;
+}
+.face-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.face-slide {
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transform:translateX(100%);transition:transform 0.6s ease;
+}
+.face-slide.active{transform:translateX(0%);}
+.face-slide.prev{transform:translateX(-100%);}
+.face-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+
+#overlay {
+  position:fixed;inset:0;z-index:800;background:#ffffff;
+  opacity:0;pointer-events:none;overflow-y:auto;
+}
+#overlay.open{opacity:1;pointer-events:all;}
+#overlay img, #overlay video { pointer-events:auto; }
+
+.ov-content {
+  position:sticky;
+  top:72px;
+  padding:120px 36px 40px;
+  opacity:0;transform:translateY(100px);
+  transition:opacity 1.2s cubic-bezier(0.2,1,0.3,1), transform 1.2s cubic-bezier(0.2,1,0.3,1);
+  z-index:1;
+}
+.ov-content.visible{opacity:1;transform:translateY(0);}
+.ov-desc{font-size:clamp(11px, 1vw, 13px);line-height:1.85;color:#888;max-width:480px;margin-bottom:40px;}
+.ov-cols {
+  display:grid;grid-template-columns:repeat(3,180px);
+  padding-bottom:20px;margin-bottom:40px;
+}
+.ov-col-label{display:block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:6px;}
+.ov-col-val{display:block;font-size:13px;font-weight:700;color:#0a0a0a;}
+.ov-grid {
+  display:grid;grid-template-columns:1fr 1fr;gap:3px;width:100vw;
+  position:relative;
+  z-index:10;
+  background:#ffffff;
+  margin-top:20px;
+  opacity:0;transform:translateY(100px);
+  transition:opacity 1.2s cubic-bezier(0.2,1,0.3,1), transform 1.2s cubic-bezier(0.2,1,0.3,1);
+  transition-delay:0.15s;
+}
+.ov-grid.visible{opacity:1;transform:translateY(0);}
+.ov-grid-item {
+  overflow:hidden;background:#e4e4e0;position:relative;
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.9s cubic-bezier(0.2,1,0.3,1), transform 0.9s cubic-bezier(0.2,1,0.3,1);
+}
+.ov-grid-item.in-view{opacity:1;transform:translateY(0);}
+.ov-grid-item.full{grid-column:1/-1;}
+.ov-grid-item img,.ov-grid-item video{width:100%;height:auto;display:block;}
+
+.ov-grid-item .mute-btn {
+  position:absolute;bottom:12px;right:12px;z-index:10;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(6px);
+  border:none;cursor:none;pointer-events:all;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s, transform .15s;
+}
+.ov-grid-item .mute-btn:hover{background:rgba(0,0,0,.7);transform:scale(1.1);}
+.ov-grid-item .mute-btn svg{width:14px;height:14px;fill:#fff;}
+
+#close-btn {
+  position:fixed;top:22px;right:36px;z-index:900;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:none;font-family:"Raleway",sans-serif;font-weight:300;
+  color:#2a2a2a;cursor:none;display:none;pointer-events:all;
+  text-shadow:0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.6);
+}
+#close-btn.on{display:block;}
+
+/* ── Info Layout ── */
+.ov-info-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:100vh;
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 0.8s ease, transform 0.8s cubic-bezier(0.2,1,0.3,1);
+}
+.ov-info-layout.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.ov-info-left{
+  padding:120px 64px 80px 80px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.ov-info-right{
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:hidden;
+}
+
+#arc-wrap{
+  position:absolute;inset:0;
+  overflow:hidden;
+  cursor:grab;
+  background:#f7f7f7;
+  background-image:radial-gradient(circle,#d0d0d0 1px,transparent 1px);
+  background-size:32px 32px;
+}
+#arc-canvas{
+  position:absolute;
+  top:0;left:0;
+  width:2400px;height:1600px;
+  transform-origin:0 0;
+  will-change:transform;
+}
+.arc-item{
+  position:absolute;
+  box-shadow:0 4px 24px rgba(0,0,0,0.10);
+  overflow:hidden;
+}
+
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<nav>
+  <a href="#" id="nameLink">Oussama El Hamli<span id="nav-project"></span></a>
+  <div class="nav-mid">
+    <a href="#" id="archiveLink">archive</a>
+    <a href="#" id="infoLink">info</a>
+  </div>
+  <span id="clock"></span>
+</nav>
+<div id="scene">
+  <div id="camera">
+    <div id="ring"></div>
+  </div>
+</div>
+<footer>
+  <div class="f-left">
+    <p>&copy; 2026 Oussama El Hamli</p>
+    <a href="/cdn-cgi/l/email-protection#ef8a83878e828386af809a9b83808084c18b8a"><span class="__cf_email__" data-cfemail="294c45414844454069465c5d45464642074d4c">[email&#160;protected]</span></a>
+  </div>
+  <div class="f-right">
+    <a href="https://www.linkedin.com/in/oussama-el-hamli-309922203/" target="_blank">Linkedin</a>
+    <a href="#" id="impressumLink">Imprint & Privacy Policy</a>
+  </div>
+</footer>
+<div id="overlay"></div>
+<button id="close-btn">&#10005; Close</button>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+var PROJECTS = [
+  { id:'georgia',title:'Georgia\nBar',sub:'Brand Identity',bg:'#0e0e0e',fg:'light',cover:'assets/images/georgia/georgia-bar_01.jpg',preview:null,client:'Georgia Bar',year:'2024',discipline:'Brand Identity',body:'The redesign of this bar aimed to combine modern aesthetics with luxurious elegance and create an inviting yet exclusive atmosphere. A central element of the redesign was the further development of the logo, which served as inspiration for abstract shapes and patterns, giving the space a mysterious and elegant effect. The redesign honors the history of the bar while simultaneously appealing to a new generation of guests.',media:[{type:'img',src:'assets/images/georgia/georgia-bar_01.jpg'},{type:'img',src:'assets/images/georgia/georgia-bar_02.jpg'},{type:'img',src:'assets/images/georgia/georgia-bar_03.jpg'},{type:'video',src:'assets/images/georgia/georgia-bar_04.mp4'},{type:'video',src:'assets/images/georgia/georgia-bar_05.mp4'},{type:'video',src:'assets/images/georgia/georgia-bar_06.mp4'},{type:'img',src:'assets/images/georgia/georgia-bar_07.jpg'},{type:'img',src:'assets/images/georgia/georgia-bar_08.jpg'}] },
+  { id:'grafik',title:'Grafik\nAuswahl',sub:'Poster & Awards',bg:'#1a1a1a',fg:'light',cover:'assets/images/grafik/grafik_01.png',preview:null,client:'Various',year:'2020-',discipline:'Graphic Design',body:'A curated selection of posters that engage with visual communication, social criticism, and speculative aesthetics. Each poster is understood as a visual statement—partly political, partly poetic—reflecting themes such as perception, control, and emotion. The collection combines competition entries, client commissions, and personal works. All works share an interest in composition, materiality, and the tension between analog and digital formal languages.',media:[{type:'img',src:'assets/images/grafik/grafik_01.png'},{type:'img',src:'assets/images/grafik/grafik_02.png'},{type:'img',src:'assets/images/grafik/grafik_03.jpg'},{type:'img',src:'assets/images/grafik/grafik_04.png'},{type:'img',src:'assets/images/grafik/grafik_05.png'},{type:'img',src:'assets/images/grafik/grafik_06.jpg'},{type:'img',src:'assets/images/grafik/grafik_07.jpg'},{type:'img',src:'assets/images/grafik/grafik_08.jpg'},{type:'img',src:'assets/images/grafik/grafik_09.jpg'},{type:'img',src:'assets/images/grafik/grafik_10.jpg'}] },
+  { id:'kalender',title:'Kalender\n2025',sub:'Kleine Brueder',bg:'#e8d4c0',fg:'dark',cover:'assets/images/kalender/kalender_01.jpg',preview:null,client:'Kleine Brueder',year:'2025',discipline:'Print Design',body:'Development of a calendar in an 80s portrait style. A visual staging of the team as a high-character series with strong recognition value. The calendar was designed as a branding and giveaway product for customers.',media:[{type:'img',src:'assets/images/kalender/kalender_01.jpg'},{type:'img',src:'assets/images/kalender/kalender_02.jpg'},{type:'img',src:'assets/images/kalender/kalender_03.jpg'},{type:'img',src:'assets/images/kalender/kalender_04.jpg'},{type:'img',src:'assets/images/kalender/kalender_05.jpg'},{type:'img',src:'assets/images/kalender/kalender_06.jpg'},{type:'img',src:'assets/images/kalender/kalender_07.jpg'},{type:'img',src:'assets/images/kalender/kalender_08.jpg'},{type:'img',src:'assets/images/kalender/kalender_9.jpg'},{type:'img',src:'assets/images/kalender/kalender_10.jpg'},{type:'img',src:'assets/images/kalender/kalender_11.jpg'}] },
+  { id:'little-game',title:'Little\nGame',sub:'Eigenes Projekt',bg:'#f0ebe3',fg:'dark',cover:'assets/images/little-game/little-game_01.jpg',preview:null,client:'Personal',year:'2025',discipline:'Art Direction',body:'Eigenes Projekt.',media:[{type:'img',src:'assets/images/little-game/little-game_01.jpg'},{type:'img',src:'assets/images/little-game/little-game_02.jpg'},{type:'img',src:'assets/images/little-game/little-game_03.jpg'},{type:'img',src:'assets/images/little-game/little-game_04.jpg'},{type:'img',src:'assets/images/little-game/little-game_05.jpg'},{type:'img',src:'assets/images/little-game/little-game_06.jpg'},{type:'img',src:'assets/images/little-game/little-game_07.jpg'},{type:'img',src:'assets/images/little-game/little-game_08.jpg'},{type:'img',src:'assets/images/little-game/little-game_09.jpg'}] },
+  { id:'animation',title:'Animation',sub:'Motion & Loops',bg:'#0f0f0f',fg:'light',cover:'assets/images/animation/animation_01.jpg',preview:'assets/images/animation/animation_preview.mp4',client:'Various',year:'2025',discipline:'Motion Design',body:'A curated selection of animated works from the field of motion design. The projects range from short loops to narrative sequences and examine movement as a creative tool to enhance mood, rhythm, and meaning. The focus lies on the connection of clear design, time-based dramaturgy, and digital aesthetics.',media:[{type:'img',src:'assets/images/animation/animation_01.jpg'},{type:'video',src:'assets/images/animation/animation_02.mp4'},{type:'video',src:'assets/images/animation/animation_03.mp4'},{type:'video',src:'assets/images/animation/animation_04.mp4'}] },
+  { id:'visual',title:'Visual\nExperience',sub:'LED Loops',bg:'#080408',fg:'light',cover:'assets/images/visual/visual_05.jpg',preview:'assets/images/visual/visual_preview.mp4',client:'0049x, De10',year:'2025',discipline:'Motion Design',body:'The goal of these loops was to bridge the gap between abstract art and functional interior design. Through the use of fluid simulations, a dynamic was created that establishes an immersive but non-distracting atmosphere on LED walls in bars.',media:[{type:'img',src:'assets/images/visual/visual_05.jpg'},{type:'video',src:'assets/images/visual/visual_01_1.mp4'},{type:'video',src:'assets/images/visual/visual_02_4.mp4'},{type:'video',src:'assets/images/visual/visual_03_1.mp4'},{type:'video',src:'assets/images/visual/visual_04_1.mp4'}] },
+  { id:'tiktok',title:'TikTok\nPraesenz',sub:'Content Strategy',bg:'#0a0a0a',fg:'light',cover:'assets/images/tiktok/tiktok_01.png',preview:'assets/images/tiktok/tiktok_preview.mp4',client:'Personal',year:'2023-2024',discipline:'Content Strategy',body:'13.221 Follower, 174.122 Likes.',media:[{type:'img',src:'assets/images/tiktok/tiktok_01.png'},{type:'video',src:'assets/images/tiktok/tiktok_02.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_03.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_04.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_05.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_06.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_07.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_08.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_09.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_10.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_11.mp4'}] }
+];
+
+var SVG_MUTED = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
+var SVG_SOUND = '<svg viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM3 9v6h4l5 5V4L7 9H3z"/><line x1="23" y1="9" x2="17" y2="15" stroke="white" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="white" stroke-width="2"/></svg>';
+
+var N=PROJECTS.length,STEP=360/N,RADIUS=0;
+var spinAngle=0,targetSpin=0;
+var isDragging=false,wasDrag=false;
+var startX=0,startSpin=0,velX=0,lastX=0,lastT=0,rafId=null;
+var isOpen=false;
+var cur=document.getElementById('cur');
+var scene=document.getElementById('scene');
+var camera=document.getElementById('camera');
+var ring=document.getElementById('ring');
+var ovEl=document.getElementById('overlay');
+var closeBtn=document.getElementById('close-btn');
+var navProject=document.getElementById('nav-project');
+
+function makeEl(tag,props){
+  var el=document.createElement(tag);
+  Object.keys(props).forEach(function(k){el[k]=props[k];});
+  el.setAttribute('draggable','false');
+  return el;
+}
+
+function startSlideshow(face){
+  var slides=face.querySelectorAll('.face-slide');
+  var current=0;
+  setInterval(function(){
+    var prev=current;
+    slides[prev].classList.remove('active');
+    slides[prev].classList.add('prev');
+    setTimeout(function(){slides[prev].classList.remove('prev');},600);
+    current=(current+1)%slides.length;
+    slides[current].classList.add('active');
+  },3000);
+}
+
+function build(){
+  ring.innerHTML='';
+  var vw=window.innerWidth;
+  var cW=Math.round(vw*0.26);
+  var cH=Math.round(cW*0.5625); // 16:9 Querformat
+  RADIUS=Math.max(Math.round((cW+20)/(2*Math.sin(Math.PI/N))),Math.round(vw*0.20));
+  scene.style.perspective=Math.round(RADIUS*4.5)+'px';
+  PROJECTS.forEach(function(proj,i){
+    var slot=document.createElement('div');
+    slot.className='slot';
+    slot.style.transform='rotateY('+(i*STEP)+'deg) translateZ('+RADIUS+'px)';
+    var face=document.createElement('div');
+    face.className='face';
+    face.style.cssText='width:'+cW+'px;height:'+cH+'px;background:'+proj.bg+';margin-left:'+(-cW/2)+'px;margin-top:'+(-cH/2)+'px;';
+    face.dataset.dark=proj.fg==='light'?'1':'0';
+    face.dataset.index=i;
+    if(proj.preview){
+      var vid=makeEl('video',{className:'face-video',src:proj.preview,autoplay:true,muted:true,loop:true,playsInline:true});
+      face.appendChild(vid);
+    } else if(proj.id==='kalender'||proj.id==='grafik'){
+      // Bildpaare sliden alle 3 Sekunden
+      var imgs=proj.media.filter(function(m){return m.type==='img';});
+      var pairs=[];
+      for(var p=0;p<imgs.length-1;p+=2){ pairs.push([imgs[p],imgs[p+1]]); }
+      if(imgs.length%2!==0){ pairs.push([imgs[imgs.length-1],imgs[0]]); }
+
+      var duoWrap=document.createElement('div');
+      duoWrap.style.cssText='position:absolute;inset:0;overflow:hidden;';
+
+      pairs.forEach(function(pair,pi){
+        var duo=document.createElement('div');
+        duo.style.cssText='position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:0;'
+          +'transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);'
+          +'transform:translateX('+(pi===0?'0':'100')+'%);';
+        pair.forEach(function(m){
+          var img=document.createElement('img');
+          img.src=m.src;
+          img.style.cssText='width:100%;height:100%;object-fit:cover;display:block;';
+          duo.appendChild(img);
+        });
+        duoWrap.appendChild(duo);
+      });
+
+      face.appendChild(duoWrap);
+
+      var curPair=0;
+      var duos=duoWrap.children;
+      setInterval(function(){
+        duos[curPair].style.transform='translateX(-100%)';
+        curPair=(curPair+1)%pairs.length;
+        // alle anderen rechts rausstellen (außer current)
+        for(var x=0;x<duos.length;x++){
+          if(x!==curPair && duos[x].style.transform!=='translateX(-100%)'){
+            duos[x].style.transition='none';
+            duos[x].style.transform='translateX(100%)';
+          }
+        }
+        duos[curPair].style.transition='none';
+        duos[curPair].style.transform='translateX(100%)';
+        // kurz warten dann reinslideen
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){
+            duos[curPair].style.transition='transform 0.6s cubic-bezier(0.4,0,0.2,1)';
+            duos[curPair].style.transform='translateX(0%)';
+          });
+        });
+      },3000);
+    } else {
+      var imgs=proj.media.filter(function(m){return m.type==='img';});
+      if(imgs.length>1){
+        imgs.forEach(function(m,idx){
+          var img=makeEl('img',{className:'face-slide'+(idx===0?' active':''),src:m.src});
+          face.appendChild(img);
+        });
+        startSlideshow(face);
+      } else {
+        var src=imgs.length?imgs[0].src:proj.cover;
+        var img=makeEl('img',{className:'face-img',src:src});
+        face.appendChild(img);
+      }
+    }
+    face.addEventListener('click',function(e){e.stopPropagation();if(!wasDrag)openProject(proj,face);});
+    face.addEventListener('mouseenter',function(){if(face.dataset.dark==='1')cur.classList.add('light');});
+    face.addEventListener('mouseleave',function(){cur.classList.remove('light');});
+    slot.appendChild(face);ring.appendChild(slot);
+  });
+  updateZ();
+}
+
+function updateZ(){
+  ring.querySelectorAll('.slot').forEach(function(s,i){
+    var wa=((i*STEP+spinAngle)%360+360)%360;
+    var dist=Math.min(wa,360-wa);
+    s.style.zIndex=Math.round(1000-dist*3);
+    s.style.opacity=(0.3+(1-dist/180)*0.7).toFixed(2);
+  });
+}
+
+// ── Intro Animation (Variante A — Karten fliegen rein) ───────────
+var introPlayed=false;
+function runIntro(){
+  if(introPlayed)return;
+  introPlayed=true;
+  var slots=ring.querySelectorAll('.slot');
+  slots.forEach(function(slot,i){
+    slot.style.transition='none';
+    slot.style.opacity='0';
+    // Karten starten weit unten außerhalb des Sichtbereichs
+    slot.style.transform='rotateY('+(i*STEP)+'deg) translateZ('+RADIUS+'px) translateY(120px)';
+  });
+  setTimeout(function(){
+    slots.forEach(function(slot,i){
+      var delay=(i*0.08)+'s';
+      slot.style.transition='transform 0.9s cubic-bezier(0.2,1,0.3,1) '+delay+', opacity 0.6s ease '+delay;
+      slot.style.opacity='1';
+      slot.style.transform='rotateY('+(i*STEP)+'deg) translateZ('+RADIUS+'px) translateY(0px)';
+    });
+    // Transitions aufräumen wenn fertig
+    setTimeout(function(){
+      slots.forEach(function(slot,i){
+        slot.style.transition='';
+        slot.style.transform='rotateY('+(i*STEP)+'deg) translateZ('+RADIUS+'px)';
+      });
+      updateZ();
+    },slots.length*80+1000);
+  },200);
+}
+
+build();
+window.addEventListener('resize',build);
+runIntro();
+
+scene.addEventListener('mousedown',function(e){
+  if(isOpen)return;
+  isDragging=true;wasDrag=false;
+  startX=e.clientX;startSpin=targetSpin;
+  lastX=e.clientX;velX=0;lastT=performance.now();
+  cur.classList.add('drag');cancelAnimationFrame(rafId);
+  e.preventDefault();
+});
+window.addEventListener('mousemove',function(e){
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  if(!isDragging)return;
+  if(Math.abs(e.clientX-startX)>4)wasDrag=true;
+  var now=performance.now();velX=(e.clientX-lastX)/Math.max(now-lastT,1);lastX=e.clientX;lastT=now;
+  targetSpin=startSpin+(e.clientX-startX)/window.innerWidth*360*0.7;
+  spinAngle=targetSpin;ring.style.transform='rotateY('+spinAngle+'deg)';updateZ();
+});
+window.addEventListener('mouseup',function(){
+  if(!isDragging)return;
+  isDragging=false;cur.classList.remove('drag');
+  targetSpin+=velX*38;targetSpin=Math.round(targetSpin/STEP)*STEP;ease();
+});
+scene.addEventListener('touchstart',function(e){
+  if(isOpen)return;
+  var t=e.touches[0];isDragging=true;wasDrag=false;
+  startX=t.clientX;startSpin=targetSpin;lastX=t.clientX;velX=0;lastT=performance.now();
+},{passive:true});
+window.addEventListener('touchmove',function(e){
+  if(!isDragging)return;
+  var t=e.touches[0];if(Math.abs(t.clientX-startX)>4)wasDrag=true;
+  var now=performance.now();velX=(t.clientX-lastX)/Math.max(now-lastT,1);lastX=t.clientX;lastT=now;
+  targetSpin=startSpin+(t.clientX-startX)/window.innerWidth*360*0.7;
+  spinAngle=targetSpin;ring.style.transform='rotateY('+spinAngle+'deg)';updateZ();
+},{passive:true});
+window.addEventListener('touchend',function(){
+  isDragging=false;targetSpin+=velX*25;targetSpin=Math.round(targetSpin/STEP)*STEP;ease();
+});
+
+function ease(){
+  cancelAnimationFrame(rafId);
+  function step(){
+    var diff=targetSpin-spinAngle;
+    if(Math.abs(diff)<0.02){spinAngle=targetSpin;ring.style.transform='rotateY('+spinAngle+'deg)';updateZ();return;}
+    spinAngle+=diff*0.12;ring.style.transform='rotateY('+spinAngle+'deg)';updateZ();rafId=requestAnimationFrame(step);
+  }
+  rafId=requestAnimationFrame(step);
+}
+
+var camX=0,camY=0,mNX=0,mNY=0;
+document.addEventListener('mousemove',function(e){
+  if(!isDragging){mNX=(e.clientX/window.innerWidth-0.5)*2;mNY=(e.clientY/window.innerHeight-0.5)*2;}
+});
+(function animCam(){
+  requestAnimationFrame(animCam);
+  if(isOpen)return;
+  camY+=(mNX*7-camY)*0.05;camX+=(-mNY*5-camX)*0.05;
+  camera.style.transform='rotateX('+camX.toFixed(2)+'deg) rotateY('+camY.toFixed(2)+'deg)';
+  camera.style.transformStyle='preserve-3d';
+})();
+
+function makeMuteBtn(vidEl){
+  var btn=document.createElement('button');
+  btn.className='mute-btn';
+  btn.innerHTML=SVG_MUTED; 
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    vidEl.muted=!vidEl.muted;
+    btn.innerHTML=vidEl.muted?SVG_MUTED:SVG_SOUND;
+  });
+  btn.addEventListener('mouseenter',function(){cur.classList.add('link');});
+  btn.addEventListener('mouseleave',function(){cur.classList.remove('link');});
+  return btn;
+}
+
+function buildOverlayHTML(proj){
+
+  // ── Little Game: Ratespiel ────────────────────────────────────
+  if(proj.id==='little-game'){
+    var realIndex=8; // little-game_09 ist echt
+    var imgs=proj.media.filter(function(m){return m.type==='img';});
+
+    var wrap=document.createElement('div');
+    wrap.style.cssText='padding:80px;';
+
+    var question=document.createElement('p');
+    question.style.cssText='font-family:Raleway,sans-serif;font-size:22px;font-weight:200;letter-spacing:.05em;color:#bbb;text-align:center;margin-bottom:40px;';
+    question.textContent='Guess which one is real';
+    wrap.appendChild(question);
+
+    var grid=document.createElement('div');
+    grid.style.cssText='display:grid;grid-template-columns:repeat(3,1fr);gap:12px;';
+
+    imgs.forEach(function(m,i){
+      var cell=document.createElement('div');
+      cell.style.cssText='position:relative;cursor:pointer;overflow:hidden;';
+
+      var img=document.createElement('img');
+      img.src=m.src;
+      img.style.cssText='width:100%;display:block;transition:filter 0.3s ease;';
+
+      var label=document.createElement('div');
+      label.style.cssText='position:absolute;bottom:0;left:0;right:0;padding:10px 14px;font-family:Raleway,sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;opacity:0;transition:opacity 0.3s ease;pointer-events:none;';
+
+      if(i===realIndex){
+        label.style.background='rgba(0,0,0,0.75)';
+        label.style.color='#fff';
+        label.textContent='✓ Real';
+      } else {
+        label.style.background='rgba(255,255,255,0.85)';
+        label.style.color='#0a0a0a';
+        label.textContent='AI Generated';
+      }
+
+      var revealed=false;
+      cell.addEventListener('click',function(){
+        if(revealed)return;
+        revealed=true;
+        label.style.opacity='1';
+        if(i!==realIndex){
+          img.style.filter='brightness(0.6)';
+        } else {
+          img.style.filter='brightness(1.05)';
+          cell.style.outline='2px solid #0a0a0a';
+        }
+      });
+
+      cell.appendChild(img);
+      cell.appendChild(label);
+      grid.appendChild(cell);
+    });
+
+    wrap.appendChild(grid);
+    ovEl.appendChild(wrap);
+
+    wrap.style.opacity='0';
+    wrap.style.transform='translateY(40px)';
+    wrap.style.transition='opacity 0.8s ease, transform 0.8s cubic-bezier(0.2,1,0.3,1)';
+    setTimeout(function(){wrap.style.opacity='1';wrap.style.transform='translateY(0)';},60);
+    return;
+  }
+
+  // ── Kalender: 2er-Reihen + _11 bildschirmfüllend unten ───────
+  if(proj.id==='kalender'){
+    var allImgs=proj.media.filter(function(m){return m.type==='img';});
+    var lastImg=allImgs[10]; // kalender_11 querformat
+    var restImgs=allImgs.slice(0,10); // kalender_01 bis _10
+
+    ovEl.innerHTML='';
+
+    var content=document.createElement('div');
+    content.className='ov-content';
+    content.innerHTML='<p class="ov-desc">'+proj.body+'</p>'
+      +'<div class="ov-cols">'
+      +'<div><span class="ov-col-label">Client</span><span class="ov-col-val">'+proj.client+'</span></div>'
+      +'<div><span class="ov-col-label">Year</span><span class="ov-col-val">'+proj.year+'</span></div>'
+      +'</div>';
+    ovEl.appendChild(content);
+
+    var grid=document.createElement('div');
+    grid.className='ov-grid';
+    grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:4px;';
+
+    restImgs.forEach(function(m){
+      var item=document.createElement('div');
+      item.className='ov-grid-item';
+      item.style.cssText='overflow:hidden;';
+      var img=document.createElement('img');
+      img.src=m.src; img.loading='lazy';
+      img.style.cssText='width:100%;height:auto;display:block;';
+      item.appendChild(img);
+      grid.appendChild(item);
+    });
+
+    // _11 ganz unten bildschirmfüllend
+    var heroItem=document.createElement('div');
+    heroItem.style.cssText='grid-column:1/-1;width:100%;height:100vh;overflow:hidden;';
+    var heroImg=document.createElement('img');
+    heroImg.src=lastImg.src; heroImg.loading='lazy';
+    heroImg.style.cssText='width:100%;height:100%;object-fit:cover;display:block;';
+    heroItem.appendChild(heroImg);
+    grid.appendChild(heroItem);
+
+    ovEl.appendChild(grid);
+    return;
+  }
+
+  // ── Standard Layout ───────────────────────────────────────────
+  var content=document.createElement('div');
+  content.className='ov-content';
+  content.innerHTML='<p class="ov-desc">'+proj.body+'</p>'
+    +'<div class="ov-cols">'
+    +'<div><span class="ov-col-label">Client</span><span class="ov-col-val">'+proj.client+'</span></div>'
+    +'<div><span class="ov-col-label">Year</span><span class="ov-col-val">'+proj.year+'</span></div>'
+    +'</div>';
+
+  var grid=document.createElement('div');
+  grid.className='ov-grid';
+
+  proj.media.forEach(function(m,i){
+    var item=document.createElement('div');
+    item.className=i===0?'ov-grid-item full':'ov-grid-item';
+
+    if(m.type==='video'){
+      var vid=document.createElement('video');
+      vid.src=m.src;
+      vid.autoplay=true;
+      vid.muted=true;
+      vid.loop=true;
+      vid.playsInline=true;
+      vid.style.cssText='width:100%;height:auto;display:block;';
+      item.appendChild(vid);
+      item.appendChild(makeMuteBtn(vid));
+    } else {
+      var img=document.createElement('img');
+      img.src=m.src;
+      img.loading='lazy';
+      img.style.cssText='width:100%;height:auto;display:block;';
+      item.appendChild(img);
+    }
+    grid.appendChild(item);
+  });
+
+  ovEl.innerHTML='';
+  ovEl.appendChild(content);
+  ovEl.appendChild(grid);
+}
+
+function openProject(proj,clickedFace){
+  isOpen=true;
+  document.getElementById('clock').classList.add('hidden');
+  ring.querySelectorAll('.face').forEach(function(f){
+    if(f!==clickedFace){f.style.opacity='0';f.style.transition='opacity 0.3s ease';}
+  });
+  buildOverlayHTML(proj);
+  ovEl.scrollTop=0;
+  ovEl.classList.add('open');
+  closeBtn.classList.add('on');
+  navProject.textContent=' / '+(proj.title||'').replace('\n',' ');
+  navProject.classList.add('visible');
+  setTimeout(function(){
+    var c=ovEl.querySelector('.ov-content');
+    var g=ovEl.querySelector('.ov-grid');
+    if(c)c.classList.add('visible');
+    if(g)g.classList.add('visible');
+    observeGridItems();
+  },60);
+}
+
+function closeProject(){
+  if(!isOpen)return;
+  document.getElementById('clock').classList.remove('hidden');
+  ovEl.classList.remove('open');
+  closeBtn.classList.remove('on');
+  navProject.classList.remove('visible');
+  setTimeout(function(){navProject.textContent='';},400);
+  ring.querySelectorAll('.face').forEach(function(f){
+    f.style.transition='opacity 0.4s ease';f.style.opacity='';
+  });
+  isOpen=false;
+  document.querySelector('nav').classList.remove('solid');
+  setTimeout(function(){ovEl.innerHTML='';},400);
+}
+
+closeBtn.addEventListener('click',closeProject);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProject();});
+document.getElementById('nameLink').addEventListener('click',function(e){
+  e.preventDefault();if(isOpen)closeProject();
+});
+document.getElementById('infoLink').addEventListener('click',function(e){
+  e.preventDefault();
+  isOpen=true;
+  document.getElementById('clock').classList.add('hidden');
+  navProject.textContent=' / Info';
+  navProject.classList.add('visible');
+  ovEl.innerHTML='<div class="ov-info-layout">'
+    +'<div class="ov-info-left">'
+    +'<p class="ov-desc" style="font-size:14px;color:#0a0a0a;line-height:1.9;margin-bottom:56px;">With a focus on new forms of spatial and media design. I develop visual concepts and interactive experiences that combine design and technology. With a strong interest in future topics, digital processes, and immersive narratives.</p>'
+    +'<div style="margin-bottom:48px;">'
+    +'<p style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#b0b0b0;margin-bottom:16px;font-family:Raleway,sans-serif;">Experience</p>'
+    +'<p class="ov-desc" style="margin-bottom:4px;">Graphic & Content Creation</p>'
+    +'<p class="ov-desc" style="color:#b0b0b0;margin-bottom:20px;">Scholz & Friends — 2022–2025</p>'
+    +'<p class="ov-desc" style="margin-bottom:4px;">Content Creation</p>'
+    +'<p class="ov-desc" style="color:#b0b0b0;">Freelancer — 2023–2025</p>'
+    +'</div>'
+    +'<div>'
+    +'<p style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#b0b0b0;margin-bottom:16px;font-family:Raleway,sans-serif;">Awards</p>'
+    +'<p class="ov-desc" style="margin-bottom:4px;">Anfachen Award</p>'
+    +'<p class="ov-desc" style="color:#b0b0b0;margin-bottom:20px;">2025</p>'
+    +'<p class="ov-desc" style="margin-bottom:4px;">DSW Competition</p>'
+    +'<p class="ov-desc" style="color:#b0b0b0;">2022</p>'
+    +'</div>'
+    +'</div>'
+    +'<div class="ov-info-right">'
+    +'<img src="assets/images/info/portrait.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />'
+    +'</div>'
+    +'</div>';
+  ovEl.classList.add('open');
+  closeBtn.classList.add('on');
+  setTimeout(function(){var c=ovEl.querySelector('.ov-info-layout');if(c)c.classList.add('visible');},100);
+});
+
+document.getElementById('impressumLink').addEventListener('click',function(e){
+  e.preventDefault();
+  isOpen=true;
+  document.getElementById('clock').classList.add('hidden');
+  navProject.textContent=' / Imprint';
+  navProject.classList.add('visible');
+  ovEl.innerHTML='<div class="ov-content" style="max-width:720px;">'
+    +'<p class="ov-desc" style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b0b0b0;margin-bottom:48px;">Imprint &amp; Privacy Policy</p>'
+
+    +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Provider (according to § 5 DDG)</p>'
+    +'<p class="ov-desc" style="color:#0a0a0a;margin-bottom:48px;">Oussama El Hamli<br>Friesickestraße 24<br>13086 Berlin, Germany<br><a href="mailto:elhamli@outlook.de" style="color:inherit;">elhamli@outlook.de</a><br>+49 159 0103 4560<br>Freelance Communication Designer</p>'
+
+    +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Liability for Content and Links</p>'
+    +'<p class="ov-desc" style="margin-bottom:48px;">Contents of these pages are created with great care, but no guarantee for accuracy or completeness is given. As a service provider, I am responsible for my own content under general laws. I am not liable for external links; the respective providers are solely responsible for their content. Unlawful links will be removed immediately upon knowledge.</p>'
+
+    +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Copyright</p>'
+    +'<p class="ov-desc" style="margin-bottom:48px;">All works, designs, and content on this site are protected by German copyright law. Any duplication, processing, distribution, or commercial use beyond private purposes requires my prior written consent.</p>'
+
+    +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Privacy Policy (GDPR)</p>'
+    +'<p class="ov-desc" style="margin-bottom:48px;">The use of this website is generally possible without providing personal data. The hosting server automatically collects and stores standard log files (e.g., browser type, operating system, IP address, time of request) to ensure a technically error-free presentation and optimization based on legitimate interest (Art. 6 (1) f GDPR). These data are not merged with other sources.</p>'
+
+    +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Contacting Me</p>'
+    +'<p class="ov-desc" style="margin-bottom:48px;">If you contact me via email, your provided details will be stored for processing the request and possible follow-up questions. This data will not be shared without your explicit consent.</p>'
+
+    +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">External Services and Fonts</p>'
+    +'<p class="ov-desc" style="margin-bottom:48px;">To ensure a uniform and aesthetic presentation, this website uses web fonts. Typography is loaded via Google Fonts; by visiting this site, your browser may transmit your IP address to Google servers. We aim to migrate to locally hosted fonts in the near future.</p>'
+
+    +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Your Rights</p>'
+    +'<p class="ov-desc" style="margin-bottom:48px;">You have the right to request free information about the origin, recipient, and purpose of your stored personal data at any time. You also have the right to request the correction, blocking, or deletion of this data.</p>'
+
+    +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Advertising Ban</p>'
+    +'<p class="ov-desc" style="margin-bottom:80px;">The use of published contact details for sending unsolicited advertising and information materials is strictly prohibited.</p>'
+    +'</div>';
+  ovEl.classList.add('open');
+  closeBtn.classList.add('on');
+  setTimeout(function(){var c=ovEl.querySelector('.ov-content');if(c)c.classList.add('visible');},100);
+});
+
+/* ── ARCHIVE ── */
+document.getElementById('archiveLink').addEventListener('click',function(e){
+  e.preventDefault();
+  isOpen=true;
+  document.getElementById('clock').classList.add('hidden');
+  navProject.textContent=' / Archive';
+  navProject.classList.add('visible');
+
+  ovEl.innerHTML='<div id="arc-wrap"><div id="arc-canvas"></div></div>';
+  ovEl.classList.add('open');
+  closeBtn.classList.add('on');
+
+  // hide overlay scroll, archive handles its own pan
+  ovEl.style.overflow='hidden';
+
+  var canvas=document.getElementById('arc-canvas');
+
+  // ── Placeholder items ──────────────────────────────────────────
+  var items=[
+    {type:'image', w:340, h:240, x:120,  y:80,  rot:-2,  label:'Image Placeholder'},
+    {type:'image', w:220, h:300, x:520,  y:60,  rot:1.5, label:'Image Placeholder'},
+    {type:'video', w:400, h:260, x:900,  y:120, rot:-1,  label:'Video Placeholder'},
+    {type:'text',  w:280, h:'auto', x:200, y:380, rot:2,   text:'This is a text card. Notes, thoughts, captions — anything that doesn\'t need its own project.'},
+    {type:'image', w:300, h:200, x:680,  y:400, rot:-3,  label:'Image Placeholder'},
+    {type:'video', w:320, h:220, x:1100, y:380, rot:1,   label:'Video Placeholder'},
+    {type:'image', w:260, h:360, x:1380, y:80,  rot:2,   label:'Image Placeholder'},
+    {type:'text',  w:240, h:'auto', x:1000, y:620, rot:-1.5, text:'Another note. Archive items can be anything — sketches, experiments, works in progress.'},
+    {type:'image', w:380, h:240, x:400,  y:640, rot:1,   label:'Image Placeholder'},
+    {type:'video', w:360, h:240, x:1350, y:440, rot:-2,  label:'Video Placeholder'},
+    {type:'image', w:200, h:280, x:80,   y:560, rot:-1,  label:'Image Placeholder'},
+    {type:'text',  w:300, h:'auto', x:750, y:180, rot:0.5, text:'Oussama El Hamli — Archive. Collected works, side projects, and explorations.'},
+  ];
+
+  items.forEach(function(item){
+    var el=document.createElement('div');
+    el.className='arc-item arc-'+item.type;
+    el.style.cssText='position:absolute;left:'+item.x+'px;top:'+item.y+'px;width:'+item.w+'px;transform:rotate('+item.rot+'deg);transform-origin:center center;';
+
+    if(item.type==='image'){
+      el.style.height=item.h+'px';
+      el.innerHTML='<div style="width:100%;height:100%;background:#e8e8e8;display:flex;align-items:center;justify-content:center;"><span style="font-family:Raleway,sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;">'+item.label+'</span></div>';
+    } else if(item.type==='video'){
+      el.style.height=item.h+'px';
+      el.innerHTML='<div style="width:100%;height:100%;background:#1a1a1a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">'
+        +'<div style="width:0;height:0;border-style:solid;border-width:12px 0 12px 22px;border-color:transparent transparent transparent rgba(255,255,255,0.4);"></div>'
+        +'<span style="font-family:Raleway,sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);">'+item.label+'</span>'
+        +'</div>';
+    } else if(item.type==='text'){
+      el.style.cssText+=';padding:24px 28px;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,0.07);border:1px solid #ececec;';
+      el.innerHTML='<p style="font-family:Raleway,sans-serif;font-size:13px;line-height:1.85;color:#555;font-weight:300;">'+item.text+'</p>';
+    }
+    canvas.appendChild(el);
+  });
+
+  // ── Pan & Zoom ──────────────────────────────────────────────────
+  var tx=-300, ty=-100, scale=1;
+  var minScale=0.1, maxScale=4;
+  var dragging=false, startX, startY, startTx, startTy;
+
+  function applyTransform(){
+    canvas.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';
+  }
+  applyTransform();
+
+  var wrap=document.getElementById('arc-wrap');
+
+  wrap.addEventListener('wheel',function(e){
+    e.preventDefault();
+    var rect=wrap.getBoundingClientRect();
+    var mx=e.clientX-rect.left;
+    var my=e.clientY-rect.top;
+    var delta=e.deltaY<0?1.1:0.9;
+    var newScale=Math.min(maxScale,Math.max(minScale,scale*delta));
+    // zoom toward mouse pointer
+    tx=mx-(mx-tx)*(newScale/scale);
+    ty=my-(my-ty)*(newScale/scale);
+    scale=newScale;
+    applyTransform();
+  },{passive:false});
+
+  var dragCard=null, dragOffX, dragOffY;
+
+  wrap.addEventListener('mousedown',function(e){
+    if(e.button!==0)return;
+    var card=e.target.closest('.arc-item');
+    if(card){
+      // drag card
+      dragCard=card;
+      var cardX=parseFloat(card.style.left)||0;
+      var cardY=parseFloat(card.style.top)||0;
+      // mouse position in canvas space
+      dragOffX=(e.clientX-tx)/scale - cardX;
+      dragOffY=(e.clientY-ty)/scale - cardY;
+      card.style.zIndex=999;
+      card.style.transition='none';
+      wrap.style.cursor='grabbing';
+      e.stopPropagation();
+    } else {
+      // pan board
+      dragging=true;
+      startX=e.clientX; startY=e.clientY;
+      startTx=tx; startTy=ty;
+      wrap.style.cursor='grabbing';
+    }
+  });
+  window.addEventListener('mousemove',function(e){
+    if(dragCard){
+      var newX=(e.clientX-tx)/scale - dragOffX;
+      var newY=(e.clientY-ty)/scale - dragOffY;
+      dragCard.style.left=newX+'px';
+      dragCard.style.top=newY+'px';
+    } else if(dragging){
+      tx=startTx+(e.clientX-startX);
+      ty=startTy+(e.clientY-startY);
+      applyTransform();
+    }
+  });
+  window.addEventListener('mouseup',function(){
+    if(dragCard){dragCard.style.zIndex='';dragCard=null;}
+    if(dragging){dragging=false;}
+    wrap.style.cursor='grab';
+  });
+
+  // touch support
+  var lastTouchDist=null, lastTouchMid=null;
+  wrap.addEventListener('touchstart',function(e){
+    if(e.touches.length===1){
+      dragging=true;
+      startX=e.touches[0].clientX; startY=e.touches[0].clientY;
+      startTx=tx; startTy=ty;
+    } else if(e.touches.length===2){
+      dragging=false;
+      var dx=e.touches[0].clientX-e.touches[1].clientX;
+      var dy=e.touches[0].clientY-e.touches[1].clientY;
+      lastTouchDist=Math.sqrt(dx*dx+dy*dy);
+      lastTouchMid={x:(e.touches[0].clientX+e.touches[1].clientX)/2,y:(e.touches[0].clientY+e.touches[1].clientY)/2};
+    }
+  },{passive:true});
+  wrap.addEventListener('touchmove',function(e){
+    e.preventDefault();
+    if(e.touches.length===1&&dragging){
+      tx=startTx+(e.touches[0].clientX-startX);
+      ty=startTy+(e.touches[0].clientY-startY);
+      applyTransform();
+    } else if(e.touches.length===2){
+      var dx=e.touches[0].clientX-e.touches[1].clientX;
+      var dy=e.touches[0].clientY-e.touches[1].clientY;
+      var dist=Math.sqrt(dx*dx+dy*dy);
+      if(lastTouchDist){
+        var delta=dist/lastTouchDist;
+        var newScale=Math.min(maxScale,Math.max(minScale,scale*delta));
+        var rect=wrap.getBoundingClientRect();
+        var mx=lastTouchMid.x-rect.left;
+        var my=lastTouchMid.y-rect.top;
+        tx=mx-(mx-tx)*(newScale/scale);
+        ty=my-(my-ty)*(newScale/scale);
+        scale=newScale;
+        applyTransform();
+      }
+      lastTouchDist=dist;
+    }
+  },{passive:false});
+  wrap.addEventListener('touchend',function(){dragging=false;lastTouchDist=null;});
+});
+
+// restore overflow when closing
+var origClose=closeProject;
+closeProject=function(){
+  ovEl.style.overflow='';
+  origClose();
+};
+
+document.querySelectorAll('a,button').forEach(function(el){
+  el.addEventListener('mouseenter',function(){cur.classList.add('link');});
+  el.addEventListener('mouseleave',function(){cur.classList.remove('link');});
+});
+
+ovEl.addEventListener('scroll',function(){
+  document.querySelector('nav').classList.toggle('solid',ovEl.scrollTop>40);
+});
+
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add('in-view');
+      observer.unobserve(entry.target);
+    }
+  });
+},{root:ovEl,threshold:0.1});
+
+function observeGridItems(){
+  ovEl.querySelectorAll('.ov-grid-item').forEach(function(item){
+    observer.observe(item);
+  });
+}
+
+var cl=document.getElementById('clock');
+function tick(){cl.textContent=new Date().toLocaleTimeString('de-DE');}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
