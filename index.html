@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oussama El Hamli</title>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 <style>
 @font-face {
   font-family: 'Raleway';
@@ -229,7 +230,7 @@ footer {
 <nav>
   <a href="#" id="nameLink">Oussama El Hamli<span id="nav-project"></span></a>
   <div class="nav-mid">
-    <a href="#" id="archiveLink">archive</a>
+    <a href="#" id="archiveLink" style="display:none">archive</a>
     <a href="#" id="infoLink">info</a>
   </div>
   <span id="clock"></span>
@@ -253,13 +254,13 @@ footer {
 <button id="close-btn">&#10005; Close</button>
 <script>
 var PROJECTS = [
-  { id:'georgia',title:'Georgia\nBar',sub:'Brand Identity',bg:'#0e0e0e',fg:'light',cover:'assets/images/georgia/georgia-bar_07.jpg',preview:null,client:'Georgia Bar',year:'2024',discipline:'Brand Identity',body:'The redesign of this bar aimed to combine modern aesthetics with luxurious elegance and create an inviting yet exclusive atmosphere. A central element of the redesign was the further development of the logo, which served as inspiration for abstract shapes and patterns, giving the space a mysterious and elegant effect. The redesign honors the history of the bar while simultaneously appealing to a new generation of guests.',media:[{type:'img',src:'assets/images/georgia/georgia-bar_07.jpg'},{type:'img',src:'assets/images/georgia/georgia-bar_08.jpg'},{type:'video',src:'assets/images/georgia/georgia-bar_04.mp4'},{type:'video',src:'assets/images/georgia/georgia-bar_06.mp4'}] },
-  { id:'grafik',title:'Grafik\nAuswahl',sub:'Poster & Awards',bg:'#1a1a1a',fg:'light',cover:'assets/images/grafik/grafik_02.png',preview:null,client:'Various',year:'2020-',discipline:'Graphic Design',body:'A curated selection of posters that engage with visual communication, social criticism, and speculative aesthetics. Each poster is understood as a visual statement—partly political, partly poetic—reflecting themes such as perception, control, and emotion. The collection combines competition entries, client commissions, and personal works. All works share an interest in composition, materiality, and the tension between analog and digital formal languages.',media:[{type:'img',src:'assets/images/grafik/grafik_02.png'},{type:'img',src:'assets/images/grafik/grafik_03.jpg'},{type:'img',src:'assets/images/grafik/grafik_04.png'},{type:'img',src:'assets/images/grafik/grafik_05.png'},{type:'img',src:'assets/images/grafik/grafik_06.jpg'},{type:'img',src:'assets/images/grafik/grafik_07.jpg'},{type:'img',src:'assets/images/grafik/grafik_14.jpg'},{type:'img',src:'assets/images/grafik/grafik_15.jpg'},{type:'img',src:'assets/images/grafik/grafik_16.jpg'},{type:'img',src:'assets/images/grafik/grafik_17.jpg'},{type:'img',src:'assets/images/grafik/grafik_18.png'},{type:'img',src:'assets/images/grafik/grafik_26.png'},{type:'img',src:'assets/images/grafik/grafik_27.jpg'},{type:'img',src:'assets/images/grafik/grafik_28.png'},{type:'img',src:'assets/images/grafik/grafik_29.png'},{type:'img',src:'assets/images/grafik/grafik_33.png'},{type:'img',src:'assets/images/grafik/grafik_34.png'},{type:'img',src:'assets/images/grafik/grafik_35.png'},{type:'img',src:'assets/images/grafik/grafik_36.png'}] },
-  { id:'kalender',title:'Kalender\n2025',sub:'Kleine Brueder',bg:'#e8d4c0',fg:'dark',cover:'assets/images/kalender/kalender_01.jpg',preview:null,client:'Kleine Brueder',year:'2025',discipline:'Print Design',body:'Development of a calendar in an 80s portrait style. A visual staging of the team as a high-character series with strong recognition value. The calendar was designed as a branding and giveaway product for customers.',media:[{type:'img',src:'assets/images/kalender/kalender_01.jpg'},{type:'img',src:'assets/images/kalender/kalender_02.jpg'},{type:'img',src:'assets/images/kalender/kalender_03.jpg'},{type:'img',src:'assets/images/kalender/kalender_04.jpg'},{type:'img',src:'assets/images/kalender/kalender_05.jpg'},{type:'img',src:'assets/images/kalender/kalender_06.jpg'},{type:'img',src:'assets/images/kalender/kalender_07.jpg'},{type:'img',src:'assets/images/kalender/kalender_08.jpg'},{type:'img',src:'assets/images/kalender/kalender_9.jpg'},{type:'img',src:'assets/images/kalender/kalender_10.jpg'},{type:'img',src:'assets/images/kalender/kalender_11.jpg'}] },
-  { id:'little-game',title:'Little\nGame',sub:'Eigenes Projekt',bg:'#f0ebe3',fg:'dark',cover:'assets/images/little-game/little-game_01.jpg',preview:null,client:'Personal',year:'2025',discipline:'Art Direction',body:'Eigenes Projekt.',media:[{type:'img',src:'assets/images/little-game/little-game_01.jpg'},{type:'img',src:'assets/images/little-game/little-game_02.jpg'},{type:'img',src:'assets/images/little-game/little-game_03.jpg'},{type:'img',src:'assets/images/little-game/little-game_04.jpg'},{type:'img',src:'assets/images/little-game/little-game_05.jpg'},{type:'img',src:'assets/images/little-game/little-game_06.jpg'},{type:'img',src:'assets/images/little-game/little-game_07.jpg'},{type:'img',src:'assets/images/little-game/little-game_08.jpg'},{type:'img',src:'assets/images/little-game/little-game_09.jpg'}] },
-  { id:'animation',title:'Animation',sub:'Motion & Loops',bg:'#0f0f0f',fg:'light',cover:'assets/images/animation/animation_01.jpg',preview:'assets/images/animation/animation_preview.mp4',client:'Various',year:'2025',discipline:'Motion Design',body:'A curated selection of animated works from the field of motion design. The projects range from short loops to narrative sequences and examine movement as a creative tool to enhance mood, rhythm, and meaning. The focus lies on the connection of clear design, time-based dramaturgy, and digital aesthetics.',media:[{type:'img',src:'assets/images/animation/animation_01.jpg'},{type:'video',src:'assets/images/animation/animation_02.mp4'},{type:'video',src:'assets/images/animation/animation_03.mp4'},{type:'video',src:'assets/images/animation/animation_04.mp4'}] },
   { id:'visual',title:'Visual\nExperience',sub:'LED Loops',bg:'#080408',fg:'light',cover:'assets/images/visual/visual_05.jpg',preview:'assets/images/visual/visual_preview.mp4',client:'0049x, De10',year:'2025',discipline:'Motion Design',body:'The goal of these loops was to bridge the gap between abstract art and functional interior design. Through the use of fluid simulations, a dynamic was created that establishes an immersive but non-distracting atmosphere on LED walls in bars.',media:[{type:'img',src:'assets/images/visual/visual_05.jpg'},{type:'video',src:'assets/images/visual/visual_01_1.mp4'},{type:'video',src:'assets/images/visual/visual_02_4.mp4'},{type:'video',src:'assets/images/visual/visual_03_1.mp4'},{type:'video',src:'assets/images/visual/visual_04_1.mp4'}] },
-  { id:'tiktok',title:'TikTok\nPraesenz',sub:'Content Strategy',bg:'#0a0a0a',fg:'light',cover:'assets/images/tiktok/tiktok_01.png',preview:'assets/images/tiktok/tiktok_preview.mp4',client:'Personal',year:'2023-2024',discipline:'Content Strategy',body:'13.221 Follower, 174.122 Likes.',media:[{type:'video',src:'assets/images/tiktok/tiktok_02.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_03.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_04.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_05.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_06.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_07.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_08.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_09.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_10.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_11.mp4'}] }
+  { id:'grafik',title:'Graphic\nSelection',sub:'Poster & Awards',bg:'#1a1a1a',fg:'light',cover:'assets/images/grafik/grafik_02.png',preview:null,client:'Various',year:'2020 –',discipline:'Graphic Design',body:'A curated selection of posters that engage with visual communication, social criticism, and speculative aesthetics. Each poster is understood as a visual statement—partly political, partly poetic—reflecting themes such as perception, control, and emotion. The collection combines competition entries, client commissions, and personal works. All works share an interest in composition, materiality, and the tension between analog and digital formal languages.',media:[{type:'img',src:'assets/images/grafik/grafik_02.png'},{type:'img',src:'assets/images/grafik/grafik_03.jpg'},{type:'img',src:'assets/images/grafik/grafik_04.png'},{type:'img',src:'assets/images/grafik/grafik_05.png'},{type:'img',src:'assets/images/grafik/grafik_06.jpg'},{type:'img',src:'assets/images/grafik/grafik_07.jpg'},{type:'img',src:'assets/images/grafik/grafik_14.jpg'},{type:'img',src:'assets/images/grafik/grafik_15.jpg'},{type:'img',src:'assets/images/grafik/grafik_16.jpg'},{type:'img',src:'assets/images/grafik/grafik_17.jpg'},{type:'img',src:'assets/images/grafik/grafik_18.png'},{type:'img',src:'assets/images/grafik/grafik_26.png'},{type:'img',src:'assets/images/grafik/grafik_27.jpg'},{type:'img',src:'assets/images/grafik/grafik_28.png'},{type:'img',src:'assets/images/grafik/grafik_29.png'},{type:'img',src:'assets/images/grafik/grafik_33.png'},{type:'img',src:'assets/images/grafik/grafik_34.png'},{type:'img',src:'assets/images/grafik/grafik_35.png'},{type:'img',src:'assets/images/grafik/grafik_36.png'}] },
+  { id:'georgia',title:'Georgia\nBar',sub:'Brand Identity',bg:'#0e0e0e',fg:'light',cover:'assets/images/georgia/georgia-bar_07.jpg',preview:null,client:'Georgia Bar',year:'2024 –',discipline:'Brand Identity',body:'The redesign of this bar aimed to combine modern aesthetics with luxurious elegance and create an inviting yet exclusive atmosphere. A central element of the redesign was the further development of the logo, which served as inspiration for abstract shapes and patterns, giving the space a mysterious and elegant effect. The redesign honors the history of the bar while simultaneously appealing to a new generation of guests.',media:[{type:'img',src:'assets/images/georgia/georgia-bar_07.jpg'},{type:'img',src:'assets/images/georgia/georgia-bar_08.jpg'},{type:'video',src:'assets/images/georgia/georgia-bar_04.mp4'},{type:'video',src:'assets/images/georgia/georgia-bar_06.mp4'}] },
+  { id:'kalender',title:'Calendar\n2025',sub:'Kleine Brueder',bg:'#e8d4c0',fg:'dark',cover:'assets/images/kalender/kalender_01.jpg',preview:null,client:'Kleine Brueder',year:'2025',discipline:'Print Design',body:'Development of a calendar in an 80s portrait style. A visual staging of the team as a high-character series with strong recognition value. The calendar was designed as a branding and giveaway product for customers.',media:[{type:'img',src:'assets/images/kalender/kalender_01.jpg'},{type:'img',src:'assets/images/kalender/kalender_02.jpg'},{type:'img',src:'assets/images/kalender/kalender_03.jpg'},{type:'img',src:'assets/images/kalender/kalender_04.jpg'},{type:'img',src:'assets/images/kalender/kalender_05.jpg'},{type:'img',src:'assets/images/kalender/kalender_06.jpg'},{type:'img',src:'assets/images/kalender/kalender_07.jpg'},{type:'img',src:'assets/images/kalender/kalender_08.jpg'},{type:'img',src:'assets/images/kalender/kalender_9.jpg'},{type:'img',src:'assets/images/kalender/kalender_10.jpg'},{type:'img',src:'assets/images/kalender/kalender_11.jpg'}] },
+  { id:'little-game',title:'Little\nGame',sub:'Personal Project',bg:'#f0ebe3',fg:'dark',cover:'assets/images/little-game/little-game_01.jpg',preview:null,client:'Personal',year:'2025',discipline:'Art Direction',body:'Personal Project.',media:[{type:'img',src:'assets/images/little-game/little-game_01.jpg'},{type:'img',src:'assets/images/little-game/little-game_02.jpg'},{type:'img',src:'assets/images/little-game/little-game_03.jpg'},{type:'img',src:'assets/images/little-game/little-game_04.jpg'},{type:'img',src:'assets/images/little-game/little-game_05.jpg'},{type:'img',src:'assets/images/little-game/little-game_06.jpg'},{type:'img',src:'assets/images/little-game/little-game_07.jpg'},{type:'img',src:'assets/images/little-game/little-game_08.jpg'},{type:'img',src:'assets/images/little-game/little-game_09.jpg'}] },
+  { id:'tiktok',title:'TikTok\nPresence',sub:'Content Strategy',bg:'#0a0a0a',fg:'light',cover:'assets/images/tiktok/tiktok_01.png',preview:'assets/images/tiktok/tiktok_preview.mp4',client:'Personal',year:'2024',discipline:'Content Strategy',body:'<span style="display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;max-width:420px;"><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">15,132,386</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Video Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">320,517</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Likes</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">81,466</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Shares</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">66,034</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Profile Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">7,155</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Comments</span></span></span>',media:[{type:'video',src:'assets/images/tiktok/tiktok_02.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_03.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_04.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_05.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_06.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_07.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_08.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_09.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_10.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_11.mp4'}] },
+  { id:'animation',title:'Animation',sub:'Motion & Loops',bg:'#0f0f0f',fg:'light',cover:'assets/images/animation/animation_01.jpg',preview:'assets/images/animation/animation_preview.mp4',client:'Various',year:'2025 –',discipline:'Motion Design',body:'A curated selection of animated works from the field of motion design. The projects range from short loops to narrative sequences and examine movement as a creative tool to enhance mood, rhythm, and meaning. The focus lies on the connection of clear design, time-based dramaturgy, and digital aesthetics.',media:[{type:'img',src:'assets/images/animation/animation_01.jpg'},{type:'video',src:'assets/images/animation/animation_02.mp4'},{type:'video',src:'assets/images/animation/animation_03.mp4'},{type:'video',src:'assets/images/animation/animation_04.mp4'}] }
 ];
 
 var SVG_MUTED = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
@@ -270,6 +271,86 @@ var spinAngle=0,targetSpin=0;
 var isDragging=false,wasDrag=false;
 var startX=0,startSpin=0,velX=0,lastX=0,lastT=0,rafId=null;
 var isOpen=false;
+var portraitCleanup=null;
+
+var PORTRAIT_VERT=`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`;
+var PORTRAIT_FRAG=`precision highp float;
+uniform sampler2D uTexture;uniform float uTime;uniform vec2 uMouse;
+uniform float uRevealRadius;uniform float uRevealSoftness;uniform float uPixelSize;uniform float uMouseActive;
+uniform float uWaveSpeed;uniform float uWaveFrequency;uniform float uWaveAmplitude;uniform float uMouseRadius;
+varying vec2 vUv;
+float bayer4x4(vec2 pos){
+  int x=int(mod(pos.x,4.0));int y=int(mod(pos.y,4.0));int index=x+y*4;
+  float p[16];p[0]=0.0;p[1]=8.0;p[2]=2.0;p[3]=10.0;p[4]=12.0;p[5]=4.0;p[6]=14.0;p[7]=6.0;
+  p[8]=3.0;p[9]=11.0;p[10]=1.0;p[11]=9.0;p[12]=15.0;p[13]=7.0;p[14]=13.0;p[15]=5.0;
+  for(int i=0;i<16;i++){if(i==index)return p[i]/16.0;}return 0.0;
+}
+void main(){
+  vec2 uv=vUv;
+  float ws=uWaveAmplitude*0.1;
+  vec2 d=uv;
+  d.x+=sin(uv.y*uWaveFrequency+uTime*uWaveSpeed)*ws;
+  d.y+=sin(uv.x*uWaveFrequency*0.7+uTime*uWaveSpeed*0.8)*ws*0.5;
+  if(uMouseActive>0.01){
+    float dist=distance(uv,uMouse);
+    float mi=smoothstep(uMouseRadius,0.0,dist);
+    float ripple=sin(dist*uWaveFrequency*5.0-uTime*uWaveSpeed)*uWaveAmplitude*0.05*mi*uMouseActive;
+    d.x+=ripple;d.y+=ripple;
+  }
+  vec4 color=texture2D(uTexture,d);
+  float gray=dot(color.rgb,vec3(0.299,0.587,0.114));
+  vec2 pc=floor(gl_FragCoord.xy/uPixelSize);
+  float dither=bayer4x4(pc);
+  float adj=gray+(dither-0.5)*0.5;
+  float q=adj<0.33?0.0:adj<0.66?0.5:1.0;
+  float rd=distance(uv,uMouse);
+  float ra=(1.0-smoothstep(uRevealRadius*(1.0-uRevealSoftness),uRevealRadius,rd))*uMouseActive;
+  gl_FragColor=vec4(mix(vec3(q),color.rgb,ra),color.a);
+}`;
+
+function initPortraitEffect(canvas){
+  var sc=new THREE.Scene();
+  var cam=new THREE.OrthographicCamera(-1,1,1,-1,0.1,10);
+  cam.position.z=1;
+  var w=canvas.offsetWidth,h=canvas.offsetHeight;
+  var rdr=new THREE.WebGLRenderer({canvas:canvas,antialias:false});
+  rdr.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  rdr.setSize(w,h,false);
+  var uni={
+    uTexture:{value:null},uTime:{value:0},uMouse:{value:new THREE.Vector2(-10,-10)},
+    uRevealRadius:{value:0.25},uRevealSoftness:{value:0.5},uPixelSize:{value:3.0},
+    uMouseActive:{value:0},uWaveSpeed:{value:0.5},uWaveFrequency:{value:3.0},
+    uWaveAmplitude:{value:0.2},uMouseRadius:{value:0.2}
+  };
+  var geo=new THREE.PlaneGeometry(2,2);
+  var mat=new THREE.ShaderMaterial({vertexShader:PORTRAIT_VERT,fragmentShader:PORTRAIT_FRAG,uniforms:uni});
+  var mesh=new THREE.Mesh(geo,mat);
+  sc.add(mesh);
+  new THREE.TextureLoader().load('assets/images/info/portrait.jpg',function(tex){
+    uni.uTexture.value=tex;
+    var ia=tex.image.naturalWidth/tex.image.naturalHeight;
+    var ca=canvas.offsetWidth/canvas.offsetHeight;
+    if(ia>ca)mesh.scale.set(ia/ca,1,1);else mesh.scale.set(1,ca/ia,1);
+  });
+  var mActive=0,mIn=false,t0=performance.now();
+  canvas.addEventListener('mouseenter',function(){mIn=true;});
+  canvas.addEventListener('mouseleave',function(){mIn=false;});
+  canvas.addEventListener('mousemove',function(e){
+    var r=canvas.getBoundingClientRect();
+    uni.uMouse.value.set((e.clientX-r.left)/r.width,1-(e.clientY-r.top)/r.height);
+  });
+  var aid;
+  function loop(){
+    aid=requestAnimationFrame(loop);
+    uni.uTime.value=(performance.now()-t0)/1000;
+    mActive+=((mIn?1:0)-mActive)*0.08;
+    uni.uMouseActive.value=mActive;
+    rdr.render(sc,cam);
+  }
+  loop();
+  return function(){cancelAnimationFrame(aid);rdr.dispose();geo.dispose();mat.dispose();};
+}
+
 var cur=document.getElementById('cur');
 var scene=document.getElementById('scene');
 var camera=document.getElementById('camera');
@@ -679,6 +760,7 @@ function openProject(proj,clickedFace){
 
 function closeProject(){
   if(!isOpen)return;
+  if(portraitCleanup){portraitCleanup();portraitCleanup=null;}
   document.getElementById('clock').classList.remove('hidden');
   ovEl.classList.remove('open');
   closeBtn.classList.remove('on');
@@ -722,12 +804,16 @@ document.getElementById('infoLink').addEventListener('click',function(e){
     +'</div>'
     +'</div>'
     +'<div class="ov-info-right">'
-    +'<img src="assets/images/info/portrait.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" />'
+    +'<canvas id="portrait-canvas" style="width:100%;height:100%;display:block;"></canvas>'
     +'</div>'
     +'</div>';
   ovEl.classList.add('open');
   closeBtn.classList.add('on');
-  setTimeout(function(){var c=ovEl.querySelector('.ov-info-layout');if(c)c.classList.add('visible');},100);
+  setTimeout(function(){
+    var c=ovEl.querySelector('.ov-info-layout');if(c)c.classList.add('visible');
+    var cv=document.getElementById('portrait-canvas');
+    if(cv&&typeof THREE!=='undefined')portraitCleanup=initPortraitEffect(cv);
+  },100);
 });
 
 document.getElementById('impressumLink').addEventListener('click',function(e){
