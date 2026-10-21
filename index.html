@@ -36,11 +36,11 @@ img, video { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 
 #cur {
   position:fixed;z-index:9999;width:8px;height:8px;border-radius:50%;
-  background:var(--accent);pointer-events:none;transform:translate(-50%,-50%);
+  background:#0a0a0a;pointer-events:none;transform:translate(-50%,-50%);
   transition:width .18s,height .18s,background .15s,border .15s;top:0;left:0;
 }
 #cur.drag{width:44px;height:44px;background:transparent;border:1.5px solid #0a0a0a;}
-#cur.link{width:28px;height:28px;background:transparent;border:1.5px solid var(--accent);}
+#cur.link{width:28px;height:28px;background:transparent;border:1.5px solid #0a0a0a;}
 #cur.light{background:#fff;}
 #cur.light.drag{background:transparent;border-color:#fff;}
 #cur.light.link{background:transparent;border-color:#fff;}
@@ -74,6 +74,7 @@ nav a:hover{opacity:.5;}
   transition:opacity .4s ease, transform .4s ease;
   display:inline-block;vertical-align:middle;
   -webkit-text-fill-color:#2a2a2a;background:none;
+  text-shadow:0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.6);
 }
 #nav-project.visible{opacity:1;transform:translateY(0);}
 #clock{font-family:"Courier New",monospace;font-size:clamp(10px, 1.1vw, 16px);color:#aaa;letter-spacing:.05em;transition:opacity 0.3s ease;}
@@ -87,7 +88,7 @@ footer {
   display:block;font-size:10px;color:#aaa;text-decoration:none;line-height:1.9;
   pointer-events:all;transition:color .2s;
 }
-.f-left a:hover,.f-right a:hover{color:var(--accent);}
+.f-left a:hover,.f-right a:hover{color:#0a0a0a;}
 .f-right{text-align:right;}
 
 #scene {
@@ -151,10 +152,10 @@ footer {
 .ov-grid.visible{opacity:1;transform:translateY(0);}
 .ov-grid-item {
   overflow:hidden;background:#e4e4e0;position:relative;
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.9s cubic-bezier(0.2,1,0.3,1), transform 0.9s cubic-bezier(0.2,1,0.3,1);
 }
-/* Bild öffnet sich per Maske (Maske am Bild, damit die Sichtbarkeits-Erkennung am Rahmen funktioniert) */
-.ov-grid-item > img,.ov-grid-item > video{clip-path:inset(100% 0 0 0);transform:scale(1.14);transition:clip-path 1.15s var(--ease),transform 1.5s var(--ease);}
-.ov-grid-item.in-view > img,.ov-grid-item.in-view > video{clip-path:inset(0 0 0 0);transform:none;}
+.ov-grid-item.in-view{opacity:1;transform:translateY(0);}
 .ov-grid-item.full{grid-column:1/-1;}
 .ov-grid-item img,.ov-grid-item video{width:100%;height:auto;display:block;}
 
@@ -174,9 +175,9 @@ footer {
   font-size:12px;letter-spacing:.12em;text-transform:uppercase;
   background:none;border:none;font-family:"Raleway",sans-serif;font-weight:300;
   color:#2a2a2a;cursor:none;display:none;pointer-events:all;
+  text-shadow:0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.6);
 }
 #close-btn.on{display:block;}
-#close-btn:hover{color:var(--accent);}
 
 /* ── Info Layout ── */
 .ov-info-layout{
@@ -234,70 +235,76 @@ footer {
   body:has(#close-btn.on) .nav-mid { visibility: hidden; }
 }
 
-:root{--accent:#FF4F00;--ease:cubic-bezier(.19,1,.22,1);}
+/* ── Erweiterungen 10/2026 – in der Formensprache der Seite ──
+   Typo wie die Navigation (Raleway 100, Versal, Grauverlauf), Labels 9px #b0b0b0,
+   Flächen Weiß / #f7f7f7 mit Punktraster wie im Archiv, Schatten wie die Karten,
+   Bewegung: Einblenden von unten mit cubic-bezier(0.2,1,0.3,1). */
 html,body{overscroll-behavior:none;}
 
-/* Großer Projekttitel – Zeilen kommen aus der Maske */
-.ov-title{font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(54px,10.5vw,176px);line-height:.86;letter-spacing:-.045em;color:#0a0a0a;margin:0 0 44px;}
-.ov-title .ln{display:block;overflow:hidden;padding:0 .04em .08em 0;}
-.ov-title .ln > span{display:block;transform:translateY(108%);transition:transform 1.15s var(--ease);}
-.ov-title .ln:nth-child(2) > span{transition-delay:.09s;}
-.ov-title .dot{color:var(--accent);}
-.ov-title.in .ln > span{transform:none;}
+/* Projekttitel im Stil des Namens oben links */
+.ov-title{font-family:"Raleway",sans-serif;font-weight:100;font-size:clamp(28px,4.4vw,64px);line-height:1.08;letter-spacing:.05em;text-transform:uppercase;margin:0 0 36px;}
+.ov-title .ln{display:block;}
+.ov-title .ln > span{display:inline-block;background:linear-gradient(to bottom,#3a3a3a 0%,#a0a0a0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(0.2,1,0.3,1),transform .9s cubic-bezier(0.2,1,0.3,1);}
+.ov-title .ln:nth-child(2) > span{transition-delay:.08s;}
+.ov-title.in .ln > span{opacity:1;transform:none;}
 
-/* Finale am Ende jedes Projekts */
-.ov-finale{position:relative;z-index:11;background:#fff;padding:16vh 36px 40px;}
-.ov-lbl{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#aaa;font-family:"Raleway",sans-serif;}
-.ov-next{display:block;font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(50px,10vw,168px);line-height:.86;letter-spacing:-.045em;color:#0a0a0a;text-decoration:none;cursor:none;margin:16px 0 16vh;transition:color .35s var(--ease);}
-.ov-next:hover{color:var(--accent);}
-.ov-next .arr{display:inline-block;transition:transform .35s var(--ease);}
-.ov-next:hover .arr{transform:translateX(.12em);}
-.ov-cta{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-top:1px solid #e6e6e6;padding-top:28px;}
-.ov-cta p{margin:0;font-family:"Raleway",sans-serif;font-weight:300;font-size:13px;color:#888;line-height:1.8;}
-.ov-mail{font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(24px,4vw,58px);letter-spacing:-.03em;color:#0a0a0a;text-decoration:none;cursor:none;border-bottom:2px solid transparent;transition:border-color .4s var(--ease),color .3s;}
-.ov-mail:hover{border-bottom-color:var(--accent);color:var(--accent);}
-.ov-foot{display:flex;justify-content:space-between;margin-top:12vh;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#bbb;font-family:"Raleway",sans-serif;}
+/* Abschluss jedes Projekts: wie der Info-Bereich */
+.ov-finale{position:relative;z-index:11;background:#fff;padding:120px 36px 80px;}
+.ov-lbl{display:block;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#b0b0b0;margin-bottom:16px;font-family:"Raleway",sans-serif;}
+.ov-next{display:inline-block;font-family:"Raleway",sans-serif;font-weight:100;font-size:clamp(24px,3.2vw,44px);letter-spacing:.05em;text-transform:uppercase;line-height:1.1;text-decoration:none;cursor:none;margin:0 0 96px;
+  background:linear-gradient(to bottom,#3a3a3a 0%,#a0a0a0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;transition:opacity .2s;}
+.ov-next:hover{opacity:.5;}
+.ov-cta{display:grid;grid-template-columns:repeat(3,180px);column-gap:0;row-gap:32px;}
+.ov-cta > div:first-child{grid-column:span 2;}
+.ov-mail{display:block;font-size:13px;font-weight:700;color:#0a0a0a;text-decoration:none;cursor:none;transition:opacity .2s;font-family:"Raleway",sans-serif;}
+.ov-mail:hover{opacity:.5;}
 
-/* Intro: der Name als Typo-Moment */
-#intro{position:fixed;inset:0;z-index:950;background:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 4vw;pointer-events:none;transition:opacity .5s ease;}
-#intro .ov-title{font-size:clamp(64px,17vw,320px);margin:0;}
-#intro .meta{position:absolute;left:4vw;right:4vw;bottom:28px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#aaa;font-family:"Raleway",sans-serif;}
-#intro.out .ov-title .ln > span{transform:translateY(-108%);transition-duration:.55s;transition-delay:0s;}
+/* Intro: der Name wie in der Navigation, nur größer */
+#intro{position:fixed;inset:0;z-index:950;background:#fff;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .5s ease;}
+#intro .ov-title{font-size:clamp(26px,5.2vw,80px);margin:0;text-align:center;}
+#intro .meta{position:absolute;left:36px;right:36px;bottom:20px;display:flex;justify-content:space-between;font-size:10px;color:#aaa;font-family:"Raleway",sans-serif;}
+#intro.out .ov-title .ln > span{opacity:0;transform:translateY(-20px);transition-duration:.45s;transition-delay:0s;}
 #intro.gone{opacity:0;}
 
-/* Georgia Website: Ebenen-Bühne */
-.gw-stage{position:relative;z-index:10;height:260vh;background:#0a0a0a;}
-.gw-sticky{position:sticky;top:0;height:100vh;overflow:hidden;perspective:1800px;}
-.gw-layer{position:absolute;left:50%;top:50%;width:min(60vw,920px);box-shadow:0 30px 80px rgba(0,0,0,.55);will-change:transform;}
-.gw-layer img{width:100%;display:block;}
-.gw-cap{position:absolute;left:36px;right:36px;bottom:28px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#777;font-family:"Raleway",sans-serif;}
-.gw-cap a{color:#fff;text-decoration:none;cursor:none;transition:color .3s;}
-.gw-cap a:hover{color:var(--accent);}
+/* Gemeinsamer Grund der Bühnen: Punktraster wie im Archiv */
+.gw-stage,.kc-stage{position:relative;z-index:10;background:#f7f7f7;background-image:radial-gradient(circle,#d0d0d0 1px,transparent 1px);background-size:32px 32px;}
 
-/* TikTok: Zahlen-Bühne + Handyformate */
-.tt-stage{position:relative;z-index:10;background:#fff;padding:10vh 36px 8vh;}
-.tt-big{font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(54px,13vw,230px);line-height:.9;letter-spacing:-.05em;color:#0a0a0a;font-variant-numeric:tabular-nums;white-space:nowrap;}
-.tt-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:8vh;border-top:1px solid #e6e6e6;padding-top:24px;}
-.tt-num{font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(26px,3.4vw,52px);letter-spacing:-.03em;color:#0a0a0a;font-variant-numeric:tabular-nums;}
-.tt-phones{position:relative;z-index:10;background:#fff;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:0 36px 6vh;}
-.tt-phone{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#111;}
+/* Georgia Website: Ebenen fächern sich auf */
+.gw-stage{height:260vh;}
+.gw-sticky{position:sticky;top:0;height:100vh;overflow:hidden;perspective:1800px;}
+.gw-layer{position:absolute;left:50%;top:50%;width:min(60vw,920px);border-radius:3px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.12),0 1px 4px rgba(0,0,0,.08);will-change:transform;}
+.gw-layer img{width:100%;display:block;}
+.gw-cap{position:absolute;left:36px;right:36px;bottom:20px;display:flex;justify-content:space-between;font-size:10px;color:#aaa;font-family:"Raleway",sans-serif;}
+.gw-cap a{color:#aaa;text-decoration:none;cursor:none;transition:color .2s;}
+.gw-cap a:hover{color:#0a0a0a;}
+
+/* TikTok: Zahlen wie die Typo der Seite, Videos als Karten im Handyformat */
+.tt-stage{position:relative;z-index:10;background:#fff;padding:80px 36px 64px;}
+.tt-big{font-family:"Raleway",sans-serif;font-weight:100;font-size:clamp(40px,8vw,120px);line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums;white-space:nowrap;
+  background:linear-gradient(to bottom,#3a3a3a 0%,#a0a0a0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tt-row{display:grid;grid-template-columns:repeat(4,180px);gap:24px 0;margin-top:56px;}
+.tt-num{font-family:"Raleway",sans-serif;font-weight:200;font-size:22px;letter-spacing:-.02em;color:#0a0a0a;font-variant-numeric:tabular-nums;margin-bottom:4px;}
+.tt-row .ov-lbl{margin:0;}
+.tt-phones{position:relative;z-index:10;background:#fff;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:0 36px 40px;}
+.tt-phone{position:relative;aspect-ratio:9/16;border-radius:3px;overflow:hidden;background:#e4e4e0;box-shadow:0 4px 24px rgba(0,0,0,.12),0 1px 4px rgba(0,0,0,.08);}
 .tt-phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 
-/* Kalender: echtes Format, Blätter fallen beim Scrollen */
-.kc-stage{position:relative;z-index:10;background:#efe8de;}
+/* Kalender: echtes Format, Blätter klappen beim Scrollen hoch */
 .kc-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;perspective:2200px;overflow:hidden;}
 .kc-cal{position:relative;height:min(74vh,122vw);aspect-ratio:1132/1600;transform-style:preserve-3d;}
-.kc-page{position:absolute;inset:0;transform-origin:50% 0;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 18px 40px rgba(0,0,0,.18);background:#fff;will-change:transform;}
+.kc-page{position:absolute;inset:0;transform-origin:50% 0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:3px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.12),0 1px 4px rgba(0,0,0,.08);background:#fff;will-change:transform;}
 .kc-page img{width:100%;height:100%;object-fit:cover;display:block;}
 .kc-bind{position:absolute;left:8%;right:8%;top:-10px;height:20px;z-index:50;background:radial-gradient(circle,#2a2a2a 3px,transparent 3.5px) 0 50%/22px 20px repeat-x;}
-.kc-count{position:absolute;left:36px;bottom:28px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#8a7f72;font-family:"Raleway",sans-serif;font-variant-numeric:tabular-nums;}
+.kc-count{position:absolute;left:36px;bottom:20px;font-size:10px;color:#aaa;font-family:"Raleway",sans-serif;font-variant-numeric:tabular-nums;}
 .kc-hero{position:relative;z-index:10;height:100vh;overflow:hidden;}
 .kc-hero img{width:100%;height:100%;object-fit:cover;display:block;}
 
 @media (max-width:600px){
-  .ov-cta{grid-template-columns:1fr;}
+  .ov-cta{grid-template-columns:1fr 1fr;}
+  .ov-cta > div:first-child{grid-column:1/-1;}
   .tt-row{grid-template-columns:1fr 1fr;}
-  .tt-phones{grid-template-columns:1fr 1fr;padding:0 20px 6vh;gap:10px;}
+  .tt-phones{grid-template-columns:1fr 1fr;padding:0 20px 40px;gap:10px;}
   .gw-layer{width:84vw;}
   .ov-finale,.tt-stage{padding-left:20px;padding-right:20px;}
   .gw-cap,.kc-count{left:20px;right:20px;}
@@ -305,8 +312,8 @@ html,body{overscroll-behavior:none;}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important;}
-  .ov-grid-item > img,.ov-grid-item > video{clip-path:none;transform:none;}
-  .ov-title .ln > span{transform:none;}
+  .ov-grid-item{opacity:1;transform:none;}
+  .ov-title .ln > span{opacity:1;transform:none;}
 }
 
 </style>
@@ -944,6 +951,8 @@ document.getElementById('infoLink').addEventListener('click',function(e){
     +'<p class="ov-desc" style="font-size:14px;color:#0a0a0a;line-height:1.9;margin-bottom:56px;">With a focus on new forms of spatial and media design. I develop visual concepts and interactive experiences that combine design and technology. With a strong interest in future topics, digital processes, and immersive narratives.</p>'
     +'<div style="margin-bottom:48px;">'
     +'<p style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#b0b0b0;margin-bottom:16px;font-family:Raleway,sans-serif;">Experience</p>'
+    +'<p class="ov-desc" style="margin-bottom:4px;">Junior Art Director</p>'
+    +'<p class="ov-desc" style="color:#b0b0b0;margin-bottom:20px;">DANGEROUS Werbeagentur — 2026–</p>'
     +'<p class="ov-desc" style="margin-bottom:4px;">Graphic & Content Creation</p>'
     +'<p class="ov-desc" style="color:#b0b0b0;margin-bottom:20px;">Scholz & Friends — 2022–2025</p>'
     +'<p class="ov-desc" style="margin-bottom:4px;">Content Creation</p>'
@@ -1220,7 +1229,7 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp
 function titleHTML(proj){
   var lines=String(proj.title||'').split('\n');
   return '<h1 class="ov-title">'+lines.map(function(l,i){
-    return '<span class="ln"><span>'+esc(l)+(i===lines.length-1?'<span class="dot">.</span>':'')+'</span></span>';
+    return '<span class="ln"><span>'+esc(l)+'</span></span>';
   }).join('')+'</h1>';
 }
 
@@ -1266,12 +1275,12 @@ function finaleEl(proj){
   var i=PROJECTS.indexOf(proj),next=PROJECTS[(i+1)%PROJECTS.length];
   var f=document.createElement('section');
   f.className='ov-finale';
-  f.innerHTML='<span class="ov-lbl">Next project</span>'
-    +'<a href="#" class="ov-next">'+esc((next.title||'').replace('\n',' '))+' <span class="arr">&rarr;</span></a>'
-    +'<span class="ov-lbl">Available for</span>'
-    +'<div class="ov-cta"><p>Social content for bars &amp; venues<br>Brand identity &amp; motion — Berlin, ongoing or per project</p>'
-    +'<a class="ov-mail" href="mailto:elhamli@outlook.de">elhamli@outlook.de</a></div>'
-    +'<div class="ov-foot"><span>&copy; 2026 Oussama El Hamli</span><span>Berlin</span></div>';
+  f.innerHTML='<span class="ov-lbl">Next Project</span>'
+    +'<a href="#" class="ov-next">'+esc((next.title||'').replace('\n',' '))+' &rarr;</a>'
+    +'<div class="ov-cta"><div><span class="ov-lbl">Available For</span>'
+    +'<p class="ov-desc" style="margin-bottom:4px;">Social Content for Bars &amp; Venues</p>'
+    +'<p class="ov-desc" style="color:#b0b0b0;">Berlin — ongoing or per project</p></div>'
+    +'<div><span class="ov-lbl">Contact</span><a class="ov-mail" href="mailto:elhamli@outlook.de">elhamli@outlook.de</a></div></div>';
   var a=f.querySelector('.ov-next');
   a.addEventListener('click',function(e){e.preventDefault();showProject(next);});
   f.querySelectorAll('a').forEach(function(el){
@@ -1400,7 +1409,7 @@ function startIntro(then){
   try{seen=sessionStorage.getItem('oeh-intro')==='1';sessionStorage.setItem('oeh-intro','1');}catch(e){}
   if(RM||seen){then();return;}
   var el=document.createElement('div');el.id='intro';
-  el.innerHTML=titleHTML({title:'Oussama\nEl Hamli'})+'<div class="meta"><span>Communication Design</span><span>Berlin</span></div>';
+  el.innerHTML=titleHTML({title:'Oussama El Hamli'})+'<div class="meta"><span>Communication Design</span><span>Berlin</span></div>';
   document.body.appendChild(el);
   var h=el.querySelector('.ov-title');
   requestAnimationFrame(function(){requestAnimationFrame(function(){h.classList.add('in');});});
