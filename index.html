@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oussama El Hamli — Communication Designer, Berlin</title>
 <meta name="description" content="Oussama El Hamli is a communication designer in Berlin: brand identity, motion and social content for bars and venues.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="canonical" href="https://oussamaelhamli.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oussamaelhamli.com/">
@@ -316,7 +319,14 @@ html,body{overscroll-behavior:none;}
   .ov-title .ln > span{opacity:1;transform:none;}
 }
 
+.tt-corner{position:absolute;top:120px;right:36px;text-align:right;}
+.tt-corner .tt-big{font-size:clamp(36px,5.6vw,88px);}
+.tt-corner .ov-lbl{margin:6px 0 0;}
+.tt-corner .tt-row{grid-template-columns:repeat(4,auto);gap:0 40px;margin-top:36px;justify-content:end;}
+.tt-corner .tt-num{font-size:18px;}
+@media (max-width:900px){.tt-corner{position:static;text-align:left;margin:0 0 40px;}.tt-corner .tt-row{grid-template-columns:1fr 1fr;justify-content:start;gap:20px 24px;}}
 </style>
+<link rel="stylesheet" href="assets/cases.css">
 </head>
 <body>
 <div id="cur"></div>
@@ -347,14 +357,15 @@ html,body{overscroll-behavior:none;}
 <button id="close-btn">&#10005; Close</button>
 <script>
 var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var GW_PROJ={ id:'georgia-web',title:'Georgia\nWebsite',sub:'Web Design',bg:'#0a0a0a',fg:'light',cover:'assets/images/georgia-web/georgia-web_01.jpg',preview:null,client:'Georgia Bar',year:'2026',discipline:'Web Design',body:'Concept, design and build of the new website for Georgia Bar in Berlin Mitte. The site carries the bar\'s identity into the digital space: a dark, cinematic entrance, an editorial voice between excess and aesthetics, and an online gallery of the artworks that hang in the bar. <a href="https://www.georgiabar.de" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:4px;">georgiabar.de &#8599;</a>',media:[{type:'img',src:'assets/images/georgia-web/georgia-web_01.jpg'},{type:'img',src:'assets/images/georgia-web/georgia-web_02.jpg'},{type:'img',src:'assets/images/georgia-web/georgia-web_03.jpg'}] }; // Georgia Website: Kapitel im Georgia-Case
 var PROJECTS = [
   { id:'visual',title:'Visual\nExperience',sub:'LED Loops',bg:'#080408',fg:'light',cover:'assets/images/visual/visual_05.jpg',preview:'assets/images/visual/visual_preview.mp4',client:'0049x, De10',year:'2025',discipline:'Motion Design',body:'The goal of these loops was to bridge the gap between abstract art and functional interior design. Through the use of fluid simulations, a dynamic was created that establishes an immersive but non-distracting atmosphere on LED walls in bars.',media:[{type:'img',src:'assets/images/visual/visual_05.jpg'},{type:'video',src:'assets/images/visual/visual_01_1.mp4',ar:'1280/522'},{type:'video',src:'assets/images/visual/visual_02_4.mp4',ar:'1280/522'},{type:'video',src:'assets/images/visual/visual_03_1.mp4',ar:'1280/226'},{type:'video',src:'assets/images/visual/visual_04_1.mp4',ar:'1280/226'}] },
   { id:'grafik',title:'Graphic\nSelection',sub:'Poster & Awards',bg:'#1a1a1a',fg:'light',cover:'assets/images/grafik/grafik_02.png',preview:null,client:'Various',year:'2020 –',discipline:'Graphic Design',body:'A curated selection of posters that engage with visual communication, social criticism, and speculative aesthetics. Each poster is understood as a visual statement—partly political, partly poetic—reflecting themes such as perception, control, and emotion. The collection combines competition entries, client commissions, and personal works. All works share an interest in composition, materiality, and the tension between analog and digital formal languages.',media:[{type:'img',src:'assets/images/grafik/grafik_02.png'},{type:'img',src:'assets/images/grafik/grafik_03.jpg'},{type:'img',src:'assets/images/grafik/grafik_04.png'},{type:'img',src:'assets/images/grafik/grafik_05.png'},{type:'img',src:'assets/images/grafik/grafik_06.jpg'},{type:'img',src:'assets/images/grafik/grafik_07.jpg'},{type:'img',src:'assets/images/grafik/grafik_14.jpg'},{type:'img',src:'assets/images/grafik/grafik_15.jpg'},{type:'img',src:'assets/images/grafik/grafik_16.jpg'},{type:'img',src:'assets/images/grafik/grafik_17.jpg'},{type:'img',src:'assets/images/grafik/grafik_18.png'},{type:'img',src:'assets/images/grafik/grafik_26.png'},{type:'img',src:'assets/images/grafik/grafik_27.jpg'},{type:'img',src:'assets/images/grafik/grafik_28.png'},{type:'img',src:'assets/images/grafik/grafik_29.png'},{type:'img',src:'assets/images/grafik/grafik_33.png'},{type:'img',src:'assets/images/grafik/grafik_34.png'},{type:'img',src:'assets/images/grafik/grafik_35.png'},{type:'img',src:'assets/images/grafik/grafik_36.png'}] },
   { id:'georgia',title:'Georgia\nBar',sub:'Brand Identity & Social Content',bg:'#0e0e0e',fg:'light',cover:'assets/images/georgia/georgia-bar_07.jpg',preview:null,client:'Georgia Bar',year:'2024 –',discipline:'Brand Identity',body:'The redesign of this bar aimed to combine modern aesthetics with luxurious elegance and create an inviting yet exclusive atmosphere. A central element of the redesign was the further development of the logo, which served as inspiration for abstract shapes and patterns, giving the space a mysterious and elegant effect. The redesign honors the history of the bar while simultaneously appealing to a new generation of guests. The collaboration continues as an ongoing content practice—each week\'s line-up translated into a consistent rhythm of stories and feed posts, keeping the bar\'s presence online as composed as the space itself.',media:[{type:'img',src:'assets/images/georgia/georgia-bar_07.jpg'},{type:'img',src:'assets/images/georgia/georgia-bar_08.jpg'},{type:'video',src:'assets/images/georgia/georgia-bar_04.mp4',ar:'720/1280'},{type:'video',src:'assets/images/georgia/georgia-bar_06.mp4',ar:'1280/720'},{type:'video',src:'assets/images/georgia/georgia-bar_09.mp4',ar:'1280/736'},{type:'video',src:'assets/images/georgia/georgia-bar_10.mp4',ar:'1280/738'}] },
-  { id:'georgia-web',title:'Georgia\nWebsite',sub:'Web Design',bg:'#0a0a0a',fg:'light',cover:'assets/images/georgia-web/georgia-web_01.jpg',preview:null,client:'Georgia Bar',year:'2026',discipline:'Web Design',body:'Concept, design and build of the new website for Georgia Bar in Berlin Mitte. The site carries the bar\'s identity into the digital space: a dark, cinematic entrance, an editorial voice between excess and aesthetics, and an online gallery of the artworks that hang in the bar. <a href="https://www.georgiabar.de" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:4px;">georgiabar.de &#8599;</a>',media:[{type:'img',src:'assets/images/georgia-web/georgia-web_01.jpg'},{type:'img',src:'assets/images/georgia-web/georgia-web_02.jpg'},{type:'img',src:'assets/images/georgia-web/georgia-web_03.jpg'}] },
+  { id:'dangerous-web',title:'Dangerous\nWebsite',sub:'Web Design — in progress',bg:'#f7f7f7',fg:'dark',cover:'assets/images/dangerous/cover.jpg',preview:null,client:'DANGEROUS Werbeagentur',year:'2026',discipline:'Web Design',body:'The new website for DANGEROUS Werbeagentur, Berlin.',media:[{type:'img',src:'assets/images/dangerous/cover.jpg'}] },
   { id:'kalender',title:'Calendar\n2025',sub:'Kleine Brüder',bg:'#e8d4c0',fg:'dark',cover:'assets/images/kalender/kalender_01.jpg',preview:null,client:'Kleine Brüder',year:'2025',discipline:'Print Design',body:'Development of a calendar in an 80s portrait style. A visual staging of the team as a high-character series with strong recognition value. The calendar was designed as a branding and giveaway product for customers.',media:[{type:'img',src:'assets/images/kalender/kalender_01.jpg'},{type:'img',src:'assets/images/kalender/kalender_02.jpg'},{type:'img',src:'assets/images/kalender/kalender_03.jpg'},{type:'img',src:'assets/images/kalender/kalender_04.jpg'},{type:'img',src:'assets/images/kalender/kalender_05.jpg'},{type:'img',src:'assets/images/kalender/kalender_06.jpg'},{type:'img',src:'assets/images/kalender/kalender_07.jpg'},{type:'img',src:'assets/images/kalender/kalender_08.jpg'},{type:'img',src:'assets/images/kalender/kalender_9.jpg'},{type:'img',src:'assets/images/kalender/kalender_10.jpg'},{type:'img',src:'assets/images/kalender/kalender_11.jpg'}] },
-  { id:'little-game',title:'Little\nGame',sub:'Real or AI?',bg:'#f0ebe3',fg:'dark',cover:'assets/images/little-game/little-game_01.jpg',preview:null,client:'Personal',year:'2025',discipline:'Art Direction',body:'A small perception test: nine images, eight generated, one photographed. Real or AI?',media:[{type:'img',src:'assets/images/little-game/little-game_01.jpg'},{type:'img',src:'assets/images/little-game/little-game_02.jpg'},{type:'img',src:'assets/images/little-game/little-game_03.jpg'},{type:'img',src:'assets/images/little-game/little-game_04.jpg'},{type:'img',src:'assets/images/little-game/little-game_05.jpg'},{type:'img',src:'assets/images/little-game/little-game_06.jpg'},{type:'img',src:'assets/images/little-game/little-game_07.jpg'},{type:'img',src:'assets/images/little-game/little-game_08.jpg'},{type:'img',src:'assets/images/little-game/little-game_09.jpg'}] },
-  { id:'tiktok',title:'TikTok\nPresence',sub:'Content Strategy',bg:'#0a0a0a',fg:'light',cover:'assets/images/tiktok/tiktok_01.png',preview:'assets/images/tiktok/tiktok_preview.mp4',client:'Personal',year:'2024',discipline:'Content Strategy',body:'<span style="display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;max-width:420px;"><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">15,132,386</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Video Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">320,517</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Likes</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">81,466</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Shares</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">66,034</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Profile Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">7,155</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Comments</span></span></span>',media:[{type:'video',src:'assets/images/tiktok/tiktok_02.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_03.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_04.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_05.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_06.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_07.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_08.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_09.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_10.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_11.mp4',ar:'480/854'}] },
+  { id:'little-game',title:'Little\nGame',sub:'Do not click',bg:'#f0ebe3',fg:'dark',cover:'assets/images/little-game/zoom_cover.jpg',preview:'assets/images/little-game/zoom_preview.mp4',client:'Personal',year:'2026',discipline:'Interaction',body:'There is always another picture. Scroll — it never ends.',media:[{type:'img',src:'assets/images/little-game/zoom_cover.jpg'}] },
+  { id:'tiktok',title:'TikTok\nPresence',sub:'Content Strategy',bg:'#0a0a0a',fg:'light',cover:'assets/images/tiktok/tiktok_01.jpg',preview:'assets/images/tiktok/tiktok_preview.mp4',client:'Personal',year:'2024',discipline:'Content Strategy',body:'<span style="display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;max-width:420px;"><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">15,132,386</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Video Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">320,517</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Likes</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">81,466</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Shares</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">66,034</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Profile Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">7,155</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Comments</span></span></span>',media:[{type:'video',src:'assets/images/tiktok/tiktok_02.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_03.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_04.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_05.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_06.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_07.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_08.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_09.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_10.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_11.mp4',ar:'480/854'}] },
   { id:'animation',title:'Animation',sub:'Motion & Loops',bg:'#0f0f0f',fg:'light',cover:'assets/images/animation/animation_01.jpg',preview:'assets/images/animation/animation_preview.mp4',client:'Various',year:'2025 –',discipline:'Motion Design',body:'A curated selection of animated works from the field of motion design. The projects range from short loops to narrative sequences and examine movement as a creative tool to enhance mood, rhythm, and meaning. The focus lies on the connection of clear design, time-based dramaturgy, and digital aesthetics.',media:[{type:'img',src:'assets/images/animation/animation_01.jpg'},{type:'video',src:'assets/images/animation/animation_02.mp4',ar:'1280/720'},{type:'video',src:'assets/images/animation/animation_03.mp4',ar:'1280/720'},{type:'video',src:'assets/images/animation/animation_04.mp4',ar:'1280/720'}] }
 ];
 
@@ -555,7 +566,7 @@ function build(){
         face.appendChild(img);
       }
     }
-    face.addEventListener('click',function(e){e.stopPropagation();if(!wasDrag)openProject(proj,face);});
+    face.addEventListener('click',function(e){e.stopPropagation();if(wasDrag)return;if(proj.id==='little-game'&&!RM&&window.Matter){collapsePortfolio(face);return;}openProject(proj,face);});
     face.addEventListener('mouseenter',function(){if(face.dataset.dark==='1')cur.classList.add('light');});
     face.addEventListener('mouseleave',function(){cur.classList.remove('light');});
     face.querySelectorAll('img').forEach(function(im){im.alt=(proj.title||'').replace('\n',' ')+' — '+proj.sub;});
@@ -685,125 +696,11 @@ function makeMuteBtn(vidEl){
 }
 
 function buildOverlayInner(proj){
+  if(proj.id==='georgia'){ buildGeorgiaCase(proj); return; }
+  if(proj.id==='little-game'){ buildLittleGame(proj); return; }
+  if(proj.id==='dangerous-web'){ buildDangerousWeb(proj); return; }
 
-  // ── Little Game: Real or AI? (Swipe-Spiel) ────────────────────
-  if(proj.id==='little-game'){
-    var REAL=8; // little-game_09 ist das echte Foto
-    var imgs=proj.media.filter(function(m){return m.type==='img';});
-    var order=imgs.map(function(_,i){return i;});
-    var idx=0,score=0,answers=[],busy=false;
-    var F='font-family:Raleway,sans-serif;';
-
-    var wrap=document.createElement('div');
-    wrap.style.cssText='min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:96px 20px 60px;box-sizing:border-box;';
-    ovEl.appendChild(wrap);
-
-    function el(tag,css,txt){var e=document.createElement(tag);if(css)e.style.cssText=css;if(txt!=null)e.textContent=txt;return e;}
-    function hover(b){b.addEventListener('mouseenter',function(){cur.classList.add('link');});b.addEventListener('mouseleave',function(){cur.classList.remove('link');});}
-    function btn(txt){var b=el('button',F+'background:none;border:1px solid #0a0a0a;color:#0a0a0a;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:14px 0;width:130px;cursor:none;',txt);hover(b);return b;}
-
-    function shuffle(){for(var i=order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=order[i];order[i]=order[j];order[j]=x;}}
-
-    function start(){
-      shuffle();idx=0;score=0;answers=[];busy=false;
-      wrap.innerHTML='';
-      wrap.appendChild(el('p',F+'font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#aaa;margin:0 0 10px;','Little Game'));
-      wrap.appendChild(el('p',F+'font-size:clamp(26px,5vw,40px);font-weight:200;color:#0a0a0a;margin:0 0 8px;letter-spacing:-.01em;','Real or AI?'));
-      wrap.appendChild(el('p',F+'font-size:13px;font-weight:300;color:#888;margin:0 0 34px;text-align:center;','Nine images. Only one is a photograph. Swipe right for real, left for AI.'));
-      var stage=el('div','position:relative;width:min(340px,78vw);aspect-ratio:3/4;');
-      stage.id='lg-stage';wrap.appendChild(stage);
-      var meta=el('p',F+'font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin:22px 0 18px;');meta.id='lg-meta';wrap.appendChild(meta);
-      var row=el('div','display:flex;gap:14px;');
-      var bAI=btn('← AI'),bReal=btn('Real →');
-      bAI.onclick=function(){answer(false);};bReal.onclick=function(){answer(true);};
-      row.appendChild(bAI);row.appendChild(bReal);wrap.appendChild(row);
-      next();
-    }
-
-    function card(i,depth){
-      var c=el('div','position:absolute;inset:0;background:#e9e3da;box-shadow:0 18px 50px rgba(0,0,0,.12);overflow:hidden;touch-action:none;transition:transform .45s cubic-bezier(.2,1,.3,1),opacity .45s ease;transform:translateY('+(depth*10)+'px) scale('+(1-depth*0.04)+');z-index:'+(10-depth)+';');
-      var im=el('img','width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;');im.src=imgs[i].src;im.alt='';
-      c.appendChild(im);
-      var stamp=el('div',F+'position:absolute;top:18px;padding:6px 12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:1.5px solid currentColor;opacity:0;transition:opacity .15s;');
-      c.appendChild(stamp);c._stamp=stamp;
-      return c;
-    }
-
-    function next(){
-      var stage=document.getElementById('lg-stage'),meta=document.getElementById('lg-meta');
-      if(!stage)return;
-      busy=false;
-      if(idx>=order.length){finish();return;}
-      stage.innerHTML='';
-      if(idx+1<order.length)stage.appendChild(card(order[idx+1],1));
-      var top=card(order[idx],0);stage.appendChild(top);
-      meta.textContent=(idx+1)+' / '+order.length;
-      drag(top);
-    }
-
-    function drag(c){
-      var sx=0,sy=0,dx=0,on=false;
-      c.addEventListener('pointerdown',function(e){on=true;sx=e.clientX;sy=e.clientY;dx=0;c.style.transition='none';c.setPointerCapture(e.pointerId);});
-      c.addEventListener('pointermove',function(e){
-        if(!on)return;dx=e.clientX-sx;var dy=e.clientY-sy;
-        c.style.transform='translate('+dx+'px,'+(dy*0.3)+'px) rotate('+(dx/18)+'deg)';
-        var s=c._stamp;s.style.opacity=Math.min(Math.abs(dx)/80,1);
-        if(dx>0){s.textContent='Real';s.style.left='18px';s.style.right='';s.style.color='#0a0a0a';}
-        else{s.textContent='AI';s.style.right='18px';s.style.left='';s.style.color='#0a0a0a';}
-      });
-      function up(){
-        if(!on)return;on=false;
-        c.style.transition='transform .45s cubic-bezier(.2,1,.3,1),opacity .45s ease';
-        if(Math.abs(dx)>90){answer(dx>0);}else{c.style.transform='';c._stamp.style.opacity=0;}
-      }
-      c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);
-    }
-
-    function answer(saysReal){
-      var stage=document.getElementById('lg-stage');if(busy||!stage||idx>=order.length)return;busy=true;
-      var top=stage.lastChild,i=order[idx],isReal=(i===REAL),ok=(saysReal===isReal);
-      if(ok)score++;answers.push({i:i,ok:ok});
-      var s=top._stamp;s.textContent=(isReal?'Real':'AI')+(ok?' ✓':' ✗');s.style.opacity=1;
-      s.style.left=saysReal?'18px':'';s.style.right=saysReal?'':'18px';
-      top.style.transition='transform .5s ease-in,opacity .5s ease-in';
-      setTimeout(function(){top.style.transform='translateX('+(saysReal?140:-140)+'%) rotate('+(saysReal?24:-24)+'deg)';top.style.opacity='0';},380);
-      idx++;setTimeout(next,820);
-    }
-
-    function finish(){
-      wrap.innerHTML='';
-      wrap.appendChild(el('p',F+'font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#aaa;margin:0 0 10px;','Your result'));
-      wrap.appendChild(el('p',F+'font-size:clamp(40px,8vw,64px);font-weight:200;color:#0a0a0a;margin:0 0 6px;',score+' / '+order.length));
-      wrap.appendChild(el('p',F+'font-size:13px;font-weight:300;color:#888;margin:0 0 36px;text-align:center;',score===order.length?'Sharp eye. You can still tell the difference.':'The line between real and generated is thinner than it looks.'));
-      var g=el('div','display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(420px,88vw);margin-bottom:34px;');
-      imgs.forEach(function(m,i){
-        var a=answers.filter(function(x){return x.i===i;})[0];
-        var cell=el('div','position:relative;aspect-ratio:3/4;background:#e9e3da;overflow:hidden;'+(i===REAL?'outline:2px solid #0a0a0a;outline-offset:2px;':''));
-        var im=el('img','width:100%;height:100%;object-fit:cover;display:block;'+(i===REAL?'':'filter:grayscale(1) brightness(.85);'));im.src=m.src;im.alt='';
-        cell.appendChild(im);
-        cell.appendChild(el('span',F+'position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;background:'+(i===REAL?'#0a0a0a;color:#fff;':'rgba(255,255,255,.85);color:#0a0a0a;'),(i===REAL?'Real':'AI')+(a?(a.ok?' ✓':' ✗'):'')));
-        g.appendChild(cell);
-      });
-      wrap.appendChild(g);
-      var again=btn('Play again');again.style.width='180px';again.onclick=start;wrap.appendChild(again);
-    }
-
-    function key(e){
-      if(!document.getElementById('lg-stage')){document.removeEventListener('keydown',key);return;}
-      if(e.key==='ArrowLeft')answer(false);else if(e.key==='ArrowRight')answer(true);
-    }
-    document.addEventListener('keydown',key);
-
-    start();
-    wrap.style.opacity='0';wrap.style.transition='opacity .8s ease';
-    setTimeout(function(){wrap.style.opacity='1';},60);
-    return;
-  }
-
-  // ── Kalender: 2er-Reihen + _11 bildschirmfüllend unten ───────
   if(proj.id==='kalender'&&!RM){ buildKalender(proj); return; }
-  if(proj.id==='georgia-web'){ buildGeorgiaWeb(proj); return; }
-  if(proj.id==='tiktok'){ buildTikTok(proj); return; }
   if(proj.id==='kalender'){
     var allImgs=proj.media.filter(function(m){return m.type==='img';});
     var lastImg=allImgs[10]; // kalender_11 querformat
@@ -851,7 +748,7 @@ function buildOverlayInner(proj){
   // ── Standard Layout ───────────────────────────────────────────
   var content=document.createElement('div');
   content.className='ov-content';
-  content.innerHTML=titleHTML(proj)+'<p class="ov-desc">'+proj.body+'</p>'
+  content.innerHTML=titleHTML(proj)+(proj.id==='tiktok'?ttCornerHTML():'<p class="ov-desc">'+proj.body+'</p>')
     +'<div class="ov-cols">'
     +'<div><span class="ov-col-label">Client</span><span class="ov-col-val">'+proj.client+'</span></div>'
     +'<div><span class="ov-col-label">Year</span><span class="ov-col-val">'+proj.year+'</span></div>'
@@ -866,8 +763,8 @@ function buildOverlayInner(proj){
 
     if(m.type==='video'){
       var vid=document.createElement('video');
-      vid.dataset.src=m.src;
-      vid.preload='none';
+      if(proj.id==='tiktok'){vid.src=m.src;vid.autoplay=true;} // TikTok: alle gleichzeitig, wie vorher
+      else{vid.dataset.src=m.src;vid.preload='none';}
       if(m.ar)vid.style.aspectRatio=m.ar;
       vid.muted=true;
       vid.loop=true;
@@ -912,6 +809,7 @@ function showProject(proj){
     if(c)c.classList.add('visible');
     if(g)g.classList.add('visible');
     ovEl.querySelectorAll('.ov-title').forEach(function(x){x.classList.add('in');});
+    ovEl.querySelectorAll('.tt-corner [data-n]').forEach(function(el){countUp(el,+el.dataset.n);});
     observeGridItems();
   },60);
 }
@@ -951,8 +849,8 @@ document.getElementById('infoLink').addEventListener('click',function(e){
     +'<p class="ov-desc" style="font-size:14px;color:#0a0a0a;line-height:1.9;margin-bottom:56px;">With a focus on new forms of spatial and media design. I develop visual concepts and interactive experiences that combine design and technology. With a strong interest in future topics, digital processes, and immersive narratives.</p>'
     +'<div style="margin-bottom:48px;">'
     +'<p style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#b0b0b0;margin-bottom:16px;font-family:Raleway,sans-serif;">Experience</p>'
-    +'<p class="ov-desc" style="margin-bottom:4px;">Junior Art Director</p>'
-    +'<p class="ov-desc" style="color:#b0b0b0;margin-bottom:20px;">DANGEROUS Werbeagentur — 2026–</p>'
+    +'<p class="ov-desc" style="margin-bottom:4px;">Art Director</p>'
+    +'<p class="ov-desc" style="color:#b0b0b0;margin-bottom:20px;">DANGEROUS — 2026–</p>'
     +'<p class="ov-desc" style="margin-bottom:4px;">Graphic & Content Creation</p>'
     +'<p class="ov-desc" style="color:#b0b0b0;margin-bottom:20px;">Scholz & Friends — 2022–2025</p>'
     +'<p class="ov-desc" style="margin-bottom:4px;">Content Creation</p>'
@@ -1299,41 +1197,11 @@ function contentEl(proj,extra){
   return c;
 }
 
-// ── Georgia Website: Ebenen fächern sich beim Scrollen auf ─────────
-function buildGeorgiaWeb(proj){
-  ovEl.appendChild(contentEl(proj));
-  var stage=document.createElement('div');stage.className='gw-stage';
-  var st=document.createElement('div');st.className='gw-sticky';stage.appendChild(st);
-  var imgs=proj.media.filter(function(m){return m.type==='img';});
-  var layers=imgs.map(function(m,i){
-    var l=document.createElement('div');l.className='gw-layer';
-    var im=document.createElement('img');im.src=m.src;im.loading='lazy';l.appendChild(im);
-    st.appendChild(l);return l;
-  });
-  var cap=document.createElement('div');cap.className='gw-cap';
-  cap.innerHTML='<span>Live — 2026</span><a href="https://www.georgiabar.de" target="_blank" rel="noopener noreferrer">georgiabar.de &#8599;</a>';
-  st.appendChild(cap);
-  ovEl.appendChild(stage);
-  function upd(){
-    var p=RM?1:easeOut3(progressOf(stage));
-    var mob=window.innerWidth<=600;
-    layers.forEach(function(l,i){
-      var k=i-(layers.length-1)/2; // -1,0,1
-      // Anfang: gestapelt und gekippt · Ende: flach nebeneinander (Handy: untereinander)
-      var tx= mob?0:k*0.32*window.innerWidth*p;
-      var ty= mob?k*0.3*window.innerHeight*p:k*18*(1-p)-30*(1-p);
-      var tz= (i-(layers.length-1))*90*(1-p);
-      var rx= 50*(1-p), rz=-12*(1-p);
-      var s = mob?1-0.15*p:1-0.5*p;
-      l.style.transform='translate(-50%,-50%) translate('+tx+'px,'+ty+'px) translateZ('+tz+'px) rotateX('+rx+'deg) rotateZ('+rz+'deg) scale('+s+')';
-      l.style.zIndex=10+i;
-    });
-  }
-  ovScrollFns.push(upd);
-  window.addEventListener('resize',upd);
-}
-
 // ── TikTok: Zahlen zählen hoch, Videos im Handyformat ────────────
+function ttCornerHTML(){
+  return '<div class="tt-corner"><div class="tt-big" data-n="'+TT_STATS[0][0]+'">0</div><span class="ov-lbl">'+TT_STATS[0][1]+'</span>'
+    +'<div class="tt-row">'+TT_STATS.slice(1).map(function(x){return '<div><div class="tt-num" data-n="'+x[0]+'">0</div><span class="ov-lbl">'+x[1]+'</span></div>';}).join('')+'</div></div>';
+}
 var TT_STATS=[[15132386,'Video views'],[320517,'Likes'],[81466,'Shares'],[66034,'Profile views'],[7155,'Comments']];
 function buildTikTok(proj){
   var c=document.createElement('div');c.className='ov-content';
@@ -1385,7 +1253,7 @@ function buildKalender(proj){
   });
   var cnt=document.createElement('div');cnt.className='kc-count';st.appendChild(cnt);
   ovEl.appendChild(stage);
-  if(last){
+  if(false&&last){ // Mockup-Foto bewusst weggelassen (Wunsch 21.10.)
     var hero=document.createElement('div');hero.className='kc-hero';
     var hi=document.createElement('img');hi.src=last.src;hi.loading='lazy';hero.appendChild(hi);
     ovEl.appendChild(hero);
@@ -1419,5 +1287,9 @@ function startIntro(then){
 }
 
 </script>
+<script src="assets/js/georgia-data.js"></script>
+<script src="assets/js/cases.js"></script>
+<script src="assets/js/matter.min.js"></script>
+<script src="assets/js/collapse.js"></script>
 </body>
 </html>
