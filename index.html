@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oussama El Hamli</title>
+<title>Oussama El Hamli — Communication Designer, Berlin</title>
+<meta name="description" content="Oussama El Hamli is a communication designer in Berlin: brand identity, motion and social content for bars and venues.">
+<link rel="canonical" href="https://oussamaelhamli.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oussamaelhamli.com/">
+<meta property="og:title" content="Oussama El Hamli — Communication Designer, Berlin">
+<meta property="og:description" content="Brand identity, motion and social content for bars and venues.">
+<meta property="og:image" content="https://oussamaelhamli.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <script src="assets/js/three.min.js"></script>
 <style>
 @font-face {
@@ -26,11 +36,11 @@ img, video { -webkit-user-drag:none; user-drag:none; pointer-events:none; }
 
 #cur {
   position:fixed;z-index:9999;width:8px;height:8px;border-radius:50%;
-  background:#0a0a0a;pointer-events:none;transform:translate(-50%,-50%);
+  background:var(--accent);pointer-events:none;transform:translate(-50%,-50%);
   transition:width .18s,height .18s,background .15s,border .15s;top:0;left:0;
 }
 #cur.drag{width:44px;height:44px;background:transparent;border:1.5px solid #0a0a0a;}
-#cur.link{width:28px;height:28px;background:transparent;border:1.5px solid #0a0a0a;}
+#cur.link{width:28px;height:28px;background:transparent;border:1.5px solid var(--accent);}
 #cur.light{background:#fff;}
 #cur.light.drag{background:transparent;border-color:#fff;}
 #cur.light.link{background:transparent;border-color:#fff;}
@@ -64,7 +74,6 @@ nav a:hover{opacity:.5;}
   transition:opacity .4s ease, transform .4s ease;
   display:inline-block;vertical-align:middle;
   -webkit-text-fill-color:#2a2a2a;background:none;
-  text-shadow:0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.6);
 }
 #nav-project.visible{opacity:1;transform:translateY(0);}
 #clock{font-family:"Courier New",monospace;font-size:clamp(10px, 1.1vw, 16px);color:#aaa;letter-spacing:.05em;transition:opacity 0.3s ease;}
@@ -78,7 +87,7 @@ footer {
   display:block;font-size:10px;color:#aaa;text-decoration:none;line-height:1.9;
   pointer-events:all;transition:color .2s;
 }
-.f-left a:hover,.f-right a:hover{color:#0a0a0a;}
+.f-left a:hover,.f-right a:hover{color:var(--accent);}
 .f-right{text-align:right;}
 
 #scene {
@@ -142,10 +151,10 @@ footer {
 .ov-grid.visible{opacity:1;transform:translateY(0);}
 .ov-grid-item {
   overflow:hidden;background:#e4e4e0;position:relative;
-  opacity:0;transform:translateY(40px);
-  transition:opacity 0.9s cubic-bezier(0.2,1,0.3,1), transform 0.9s cubic-bezier(0.2,1,0.3,1);
 }
-.ov-grid-item.in-view{opacity:1;transform:translateY(0);}
+/* Bild öffnet sich per Maske (Maske am Bild, damit die Sichtbarkeits-Erkennung am Rahmen funktioniert) */
+.ov-grid-item > img,.ov-grid-item > video{clip-path:inset(100% 0 0 0);transform:scale(1.14);transition:clip-path 1.15s var(--ease),transform 1.5s var(--ease);}
+.ov-grid-item.in-view > img,.ov-grid-item.in-view > video{clip-path:inset(0 0 0 0);transform:none;}
 .ov-grid-item.full{grid-column:1/-1;}
 .ov-grid-item img,.ov-grid-item video{width:100%;height:auto;display:block;}
 
@@ -165,9 +174,9 @@ footer {
   font-size:12px;letter-spacing:.12em;text-transform:uppercase;
   background:none;border:none;font-family:"Raleway",sans-serif;font-weight:300;
   color:#2a2a2a;cursor:none;display:none;pointer-events:all;
-  text-shadow:0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(255,255,255,0.6);
 }
 #close-btn.on{display:block;}
+#close-btn:hover{color:var(--accent);}
 
 /* ── Info Layout ── */
 .ov-info-layout{
@@ -225,6 +234,81 @@ footer {
   body:has(#close-btn.on) .nav-mid { visibility: hidden; }
 }
 
+:root{--accent:#FF4F00;--ease:cubic-bezier(.19,1,.22,1);}
+html,body{overscroll-behavior:none;}
+
+/* Großer Projekttitel – Zeilen kommen aus der Maske */
+.ov-title{font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(54px,10.5vw,176px);line-height:.86;letter-spacing:-.045em;color:#0a0a0a;margin:0 0 44px;}
+.ov-title .ln{display:block;overflow:hidden;padding:0 .04em .08em 0;}
+.ov-title .ln > span{display:block;transform:translateY(108%);transition:transform 1.15s var(--ease);}
+.ov-title .ln:nth-child(2) > span{transition-delay:.09s;}
+.ov-title .dot{color:var(--accent);}
+.ov-title.in .ln > span{transform:none;}
+
+/* Finale am Ende jedes Projekts */
+.ov-finale{position:relative;z-index:11;background:#fff;padding:16vh 36px 40px;}
+.ov-lbl{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#aaa;font-family:"Raleway",sans-serif;}
+.ov-next{display:block;font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(50px,10vw,168px);line-height:.86;letter-spacing:-.045em;color:#0a0a0a;text-decoration:none;cursor:none;margin:16px 0 16vh;transition:color .35s var(--ease);}
+.ov-next:hover{color:var(--accent);}
+.ov-next .arr{display:inline-block;transition:transform .35s var(--ease);}
+.ov-next:hover .arr{transform:translateX(.12em);}
+.ov-cta{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-top:1px solid #e6e6e6;padding-top:28px;}
+.ov-cta p{margin:0;font-family:"Raleway",sans-serif;font-weight:300;font-size:13px;color:#888;line-height:1.8;}
+.ov-mail{font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(24px,4vw,58px);letter-spacing:-.03em;color:#0a0a0a;text-decoration:none;cursor:none;border-bottom:2px solid transparent;transition:border-color .4s var(--ease),color .3s;}
+.ov-mail:hover{border-bottom-color:var(--accent);color:var(--accent);}
+.ov-foot{display:flex;justify-content:space-between;margin-top:12vh;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#bbb;font-family:"Raleway",sans-serif;}
+
+/* Intro: der Name als Typo-Moment */
+#intro{position:fixed;inset:0;z-index:950;background:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 4vw;pointer-events:none;transition:opacity .5s ease;}
+#intro .ov-title{font-size:clamp(64px,17vw,320px);margin:0;}
+#intro .meta{position:absolute;left:4vw;right:4vw;bottom:28px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#aaa;font-family:"Raleway",sans-serif;}
+#intro.out .ov-title .ln > span{transform:translateY(-108%);transition-duration:.55s;transition-delay:0s;}
+#intro.gone{opacity:0;}
+
+/* Georgia Website: Ebenen-Bühne */
+.gw-stage{position:relative;z-index:10;height:260vh;background:#0a0a0a;}
+.gw-sticky{position:sticky;top:0;height:100vh;overflow:hidden;perspective:1800px;}
+.gw-layer{position:absolute;left:50%;top:50%;width:min(60vw,920px);box-shadow:0 30px 80px rgba(0,0,0,.55);will-change:transform;}
+.gw-layer img{width:100%;display:block;}
+.gw-cap{position:absolute;left:36px;right:36px;bottom:28px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#777;font-family:"Raleway",sans-serif;}
+.gw-cap a{color:#fff;text-decoration:none;cursor:none;transition:color .3s;}
+.gw-cap a:hover{color:var(--accent);}
+
+/* TikTok: Zahlen-Bühne + Handyformate */
+.tt-stage{position:relative;z-index:10;background:#fff;padding:10vh 36px 8vh;}
+.tt-big{font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(54px,13vw,230px);line-height:.9;letter-spacing:-.05em;color:#0a0a0a;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.tt-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:8vh;border-top:1px solid #e6e6e6;padding-top:24px;}
+.tt-num{font-family:"Raleway",sans-serif;font-weight:200;font-size:clamp(26px,3.4vw,52px);letter-spacing:-.03em;color:#0a0a0a;font-variant-numeric:tabular-nums;}
+.tt-phones{position:relative;z-index:10;background:#fff;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:0 36px 6vh;}
+.tt-phone{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#111;}
+.tt-phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+
+/* Kalender: echtes Format, Blätter fallen beim Scrollen */
+.kc-stage{position:relative;z-index:10;background:#efe8de;}
+.kc-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;perspective:2200px;overflow:hidden;}
+.kc-cal{position:relative;height:min(74vh,122vw);aspect-ratio:1132/1600;transform-style:preserve-3d;}
+.kc-page{position:absolute;inset:0;transform-origin:50% 0;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 18px 40px rgba(0,0,0,.18);background:#fff;will-change:transform;}
+.kc-page img{width:100%;height:100%;object-fit:cover;display:block;}
+.kc-bind{position:absolute;left:8%;right:8%;top:-10px;height:20px;z-index:50;background:radial-gradient(circle,#2a2a2a 3px,transparent 3.5px) 0 50%/22px 20px repeat-x;}
+.kc-count{position:absolute;left:36px;bottom:28px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#8a7f72;font-family:"Raleway",sans-serif;font-variant-numeric:tabular-nums;}
+.kc-hero{position:relative;z-index:10;height:100vh;overflow:hidden;}
+.kc-hero img{width:100%;height:100%;object-fit:cover;display:block;}
+
+@media (max-width:600px){
+  .ov-cta{grid-template-columns:1fr;}
+  .tt-row{grid-template-columns:1fr 1fr;}
+  .tt-phones{grid-template-columns:1fr 1fr;padding:0 20px 6vh;gap:10px;}
+  .gw-layer{width:84vw;}
+  .ov-finale,.tt-stage{padding-left:20px;padding-right:20px;}
+  .gw-cap,.kc-count{left:20px;right:20px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important;}
+  .ov-grid-item > img,.ov-grid-item > video{clip-path:none;transform:none;}
+  .ov-title .ln > span{transform:none;}
+}
+
 </style>
 </head>
 <body>
@@ -255,15 +339,16 @@ footer {
 <div id="overlay"></div>
 <button id="close-btn">&#10005; Close</button>
 <script>
+var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var PROJECTS = [
-  { id:'visual',title:'Visual\nExperience',sub:'LED Loops',bg:'#080408',fg:'light',cover:'assets/images/visual/visual_05.jpg',preview:'assets/images/visual/visual_preview.mp4',client:'0049x, De10',year:'2025',discipline:'Motion Design',body:'The goal of these loops was to bridge the gap between abstract art and functional interior design. Through the use of fluid simulations, a dynamic was created that establishes an immersive but non-distracting atmosphere on LED walls in bars.',media:[{type:'img',src:'assets/images/visual/visual_05.jpg'},{type:'video',src:'assets/images/visual/visual_01_1.mp4'},{type:'video',src:'assets/images/visual/visual_02_4.mp4'},{type:'video',src:'assets/images/visual/visual_03_1.mp4'},{type:'video',src:'assets/images/visual/visual_04_1.mp4'}] },
+  { id:'visual',title:'Visual\nExperience',sub:'LED Loops',bg:'#080408',fg:'light',cover:'assets/images/visual/visual_05.jpg',preview:'assets/images/visual/visual_preview.mp4',client:'0049x, De10',year:'2025',discipline:'Motion Design',body:'The goal of these loops was to bridge the gap between abstract art and functional interior design. Through the use of fluid simulations, a dynamic was created that establishes an immersive but non-distracting atmosphere on LED walls in bars.',media:[{type:'img',src:'assets/images/visual/visual_05.jpg'},{type:'video',src:'assets/images/visual/visual_01_1.mp4',ar:'1280/522'},{type:'video',src:'assets/images/visual/visual_02_4.mp4',ar:'1280/522'},{type:'video',src:'assets/images/visual/visual_03_1.mp4',ar:'1280/226'},{type:'video',src:'assets/images/visual/visual_04_1.mp4',ar:'1280/226'}] },
   { id:'grafik',title:'Graphic\nSelection',sub:'Poster & Awards',bg:'#1a1a1a',fg:'light',cover:'assets/images/grafik/grafik_02.png',preview:null,client:'Various',year:'2020 –',discipline:'Graphic Design',body:'A curated selection of posters that engage with visual communication, social criticism, and speculative aesthetics. Each poster is understood as a visual statement—partly political, partly poetic—reflecting themes such as perception, control, and emotion. The collection combines competition entries, client commissions, and personal works. All works share an interest in composition, materiality, and the tension between analog and digital formal languages.',media:[{type:'img',src:'assets/images/grafik/grafik_02.png'},{type:'img',src:'assets/images/grafik/grafik_03.jpg'},{type:'img',src:'assets/images/grafik/grafik_04.png'},{type:'img',src:'assets/images/grafik/grafik_05.png'},{type:'img',src:'assets/images/grafik/grafik_06.jpg'},{type:'img',src:'assets/images/grafik/grafik_07.jpg'},{type:'img',src:'assets/images/grafik/grafik_14.jpg'},{type:'img',src:'assets/images/grafik/grafik_15.jpg'},{type:'img',src:'assets/images/grafik/grafik_16.jpg'},{type:'img',src:'assets/images/grafik/grafik_17.jpg'},{type:'img',src:'assets/images/grafik/grafik_18.png'},{type:'img',src:'assets/images/grafik/grafik_26.png'},{type:'img',src:'assets/images/grafik/grafik_27.jpg'},{type:'img',src:'assets/images/grafik/grafik_28.png'},{type:'img',src:'assets/images/grafik/grafik_29.png'},{type:'img',src:'assets/images/grafik/grafik_33.png'},{type:'img',src:'assets/images/grafik/grafik_34.png'},{type:'img',src:'assets/images/grafik/grafik_35.png'},{type:'img',src:'assets/images/grafik/grafik_36.png'}] },
-  { id:'georgia',title:'Georgia\nBar',sub:'Brand Identity & Social Content',bg:'#0e0e0e',fg:'light',cover:'assets/images/georgia/georgia-bar_07.jpg',preview:null,client:'Georgia Bar',year:'2024 –',discipline:'Brand Identity',body:'The redesign of this bar aimed to combine modern aesthetics with luxurious elegance and create an inviting yet exclusive atmosphere. A central element of the redesign was the further development of the logo, which served as inspiration for abstract shapes and patterns, giving the space a mysterious and elegant effect. The redesign honors the history of the bar while simultaneously appealing to a new generation of guests. The collaboration continues as an ongoing content practice—each week\'s line-up translated into a consistent rhythm of stories and feed posts, keeping the bar\'s presence online as composed as the space itself.',media:[{type:'img',src:'assets/images/georgia/georgia-bar_07.jpg'},{type:'img',src:'assets/images/georgia/georgia-bar_08.jpg'},{type:'video',src:'assets/images/georgia/georgia-bar_04.mp4'},{type:'video',src:'assets/images/georgia/georgia-bar_06.mp4'},{type:'video',src:'assets/images/georgia/georgia-bar_09.mp4'},{type:'video',src:'assets/images/georgia/georgia-bar_10.mp4'}] },
+  { id:'georgia',title:'Georgia\nBar',sub:'Brand Identity & Social Content',bg:'#0e0e0e',fg:'light',cover:'assets/images/georgia/georgia-bar_07.jpg',preview:null,client:'Georgia Bar',year:'2024 –',discipline:'Brand Identity',body:'The redesign of this bar aimed to combine modern aesthetics with luxurious elegance and create an inviting yet exclusive atmosphere. A central element of the redesign was the further development of the logo, which served as inspiration for abstract shapes and patterns, giving the space a mysterious and elegant effect. The redesign honors the history of the bar while simultaneously appealing to a new generation of guests. The collaboration continues as an ongoing content practice—each week\'s line-up translated into a consistent rhythm of stories and feed posts, keeping the bar\'s presence online as composed as the space itself.',media:[{type:'img',src:'assets/images/georgia/georgia-bar_07.jpg'},{type:'img',src:'assets/images/georgia/georgia-bar_08.jpg'},{type:'video',src:'assets/images/georgia/georgia-bar_04.mp4',ar:'720/1280'},{type:'video',src:'assets/images/georgia/georgia-bar_06.mp4',ar:'1280/720'},{type:'video',src:'assets/images/georgia/georgia-bar_09.mp4',ar:'1280/736'},{type:'video',src:'assets/images/georgia/georgia-bar_10.mp4',ar:'1280/738'}] },
   { id:'georgia-web',title:'Georgia\nWebsite',sub:'Web Design',bg:'#0a0a0a',fg:'light',cover:'assets/images/georgia-web/georgia-web_01.jpg',preview:null,client:'Georgia Bar',year:'2026',discipline:'Web Design',body:'Concept, design and build of the new website for Georgia Bar in Berlin Mitte. The site carries the bar\'s identity into the digital space: a dark, cinematic entrance, an editorial voice between excess and aesthetics, and an online gallery of the artworks that hang in the bar. <a href="https://www.georgiabar.de" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:4px;">georgiabar.de &#8599;</a>',media:[{type:'img',src:'assets/images/georgia-web/georgia-web_01.jpg'},{type:'img',src:'assets/images/georgia-web/georgia-web_02.jpg'},{type:'img',src:'assets/images/georgia-web/georgia-web_03.jpg'}] },
-  { id:'kalender',title:'Calendar\n2025',sub:'Kleine Brueder',bg:'#e8d4c0',fg:'dark',cover:'assets/images/kalender/kalender_01.jpg',preview:null,client:'Kleine Brueder',year:'2025',discipline:'Print Design',body:'Development of a calendar in an 80s portrait style. A visual staging of the team as a high-character series with strong recognition value. The calendar was designed as a branding and giveaway product for customers.',media:[{type:'img',src:'assets/images/kalender/kalender_01.jpg'},{type:'img',src:'assets/images/kalender/kalender_02.jpg'},{type:'img',src:'assets/images/kalender/kalender_03.jpg'},{type:'img',src:'assets/images/kalender/kalender_04.jpg'},{type:'img',src:'assets/images/kalender/kalender_05.jpg'},{type:'img',src:'assets/images/kalender/kalender_06.jpg'},{type:'img',src:'assets/images/kalender/kalender_07.jpg'},{type:'img',src:'assets/images/kalender/kalender_08.jpg'},{type:'img',src:'assets/images/kalender/kalender_9.jpg'},{type:'img',src:'assets/images/kalender/kalender_10.jpg'},{type:'img',src:'assets/images/kalender/kalender_11.jpg'}] },
+  { id:'kalender',title:'Calendar\n2025',sub:'Kleine Brüder',bg:'#e8d4c0',fg:'dark',cover:'assets/images/kalender/kalender_01.jpg',preview:null,client:'Kleine Brüder',year:'2025',discipline:'Print Design',body:'Development of a calendar in an 80s portrait style. A visual staging of the team as a high-character series with strong recognition value. The calendar was designed as a branding and giveaway product for customers.',media:[{type:'img',src:'assets/images/kalender/kalender_01.jpg'},{type:'img',src:'assets/images/kalender/kalender_02.jpg'},{type:'img',src:'assets/images/kalender/kalender_03.jpg'},{type:'img',src:'assets/images/kalender/kalender_04.jpg'},{type:'img',src:'assets/images/kalender/kalender_05.jpg'},{type:'img',src:'assets/images/kalender/kalender_06.jpg'},{type:'img',src:'assets/images/kalender/kalender_07.jpg'},{type:'img',src:'assets/images/kalender/kalender_08.jpg'},{type:'img',src:'assets/images/kalender/kalender_9.jpg'},{type:'img',src:'assets/images/kalender/kalender_10.jpg'},{type:'img',src:'assets/images/kalender/kalender_11.jpg'}] },
   { id:'little-game',title:'Little\nGame',sub:'Real or AI?',bg:'#f0ebe3',fg:'dark',cover:'assets/images/little-game/little-game_01.jpg',preview:null,client:'Personal',year:'2025',discipline:'Art Direction',body:'A small perception test: nine images, eight generated, one photographed. Real or AI?',media:[{type:'img',src:'assets/images/little-game/little-game_01.jpg'},{type:'img',src:'assets/images/little-game/little-game_02.jpg'},{type:'img',src:'assets/images/little-game/little-game_03.jpg'},{type:'img',src:'assets/images/little-game/little-game_04.jpg'},{type:'img',src:'assets/images/little-game/little-game_05.jpg'},{type:'img',src:'assets/images/little-game/little-game_06.jpg'},{type:'img',src:'assets/images/little-game/little-game_07.jpg'},{type:'img',src:'assets/images/little-game/little-game_08.jpg'},{type:'img',src:'assets/images/little-game/little-game_09.jpg'}] },
-  { id:'tiktok',title:'TikTok\nPresence',sub:'Content Strategy',bg:'#0a0a0a',fg:'light',cover:'assets/images/tiktok/tiktok_01.png',preview:'assets/images/tiktok/tiktok_preview.mp4',client:'Personal',year:'2024',discipline:'Content Strategy',body:'<span style="display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;max-width:420px;"><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">15,132,386</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Video Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">320,517</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Likes</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">81,466</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Shares</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">66,034</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Profile Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">7,155</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Comments</span></span></span>',media:[{type:'video',src:'assets/images/tiktok/tiktok_02.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_03.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_04.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_05.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_06.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_07.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_08.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_09.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_10.mp4'},{type:'video',src:'assets/images/tiktok/tiktok_11.mp4'}] },
-  { id:'animation',title:'Animation',sub:'Motion & Loops',bg:'#0f0f0f',fg:'light',cover:'assets/images/animation/animation_01.jpg',preview:'assets/images/animation/animation_preview.mp4',client:'Various',year:'2025 –',discipline:'Motion Design',body:'A curated selection of animated works from the field of motion design. The projects range from short loops to narrative sequences and examine movement as a creative tool to enhance mood, rhythm, and meaning. The focus lies on the connection of clear design, time-based dramaturgy, and digital aesthetics.',media:[{type:'img',src:'assets/images/animation/animation_01.jpg'},{type:'video',src:'assets/images/animation/animation_02.mp4'},{type:'video',src:'assets/images/animation/animation_03.mp4'},{type:'video',src:'assets/images/animation/animation_04.mp4'}] }
+  { id:'tiktok',title:'TikTok\nPresence',sub:'Content Strategy',bg:'#0a0a0a',fg:'light',cover:'assets/images/tiktok/tiktok_01.png',preview:'assets/images/tiktok/tiktok_preview.mp4',client:'Personal',year:'2024',discipline:'Content Strategy',body:'<span style="display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;max-width:420px;"><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">15,132,386</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Video Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">320,517</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Likes</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">81,466</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Shares</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">66,034</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Profile Views</span></span><span><span style="font-size:22px;font-weight:200;color:#0a0a0a;display:block;letter-spacing:-.02em;">7,155</span><span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#aaa;">Comments</span></span></span>',media:[{type:'video',src:'assets/images/tiktok/tiktok_02.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_03.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_04.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_05.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_06.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_07.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_08.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_09.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_10.mp4',ar:'480/854'},{type:'video',src:'assets/images/tiktok/tiktok_11.mp4',ar:'480/854'}] },
+  { id:'animation',title:'Animation',sub:'Motion & Loops',bg:'#0f0f0f',fg:'light',cover:'assets/images/animation/animation_01.jpg',preview:'assets/images/animation/animation_preview.mp4',client:'Various',year:'2025 –',discipline:'Motion Design',body:'A curated selection of animated works from the field of motion design. The projects range from short loops to narrative sequences and examine movement as a creative tool to enhance mood, rhythm, and meaning. The focus lies on the connection of clear design, time-based dramaturgy, and digital aesthetics.',media:[{type:'img',src:'assets/images/animation/animation_01.jpg'},{type:'video',src:'assets/images/animation/animation_02.mp4',ar:'1280/720'},{type:'video',src:'assets/images/animation/animation_03.mp4',ar:'1280/720'},{type:'video',src:'assets/images/animation/animation_04.mp4',ar:'1280/720'}] }
 ];
 
 var SVG_MUTED = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
@@ -466,6 +551,7 @@ function build(){
     face.addEventListener('click',function(e){e.stopPropagation();if(!wasDrag)openProject(proj,face);});
     face.addEventListener('mouseenter',function(){if(face.dataset.dark==='1')cur.classList.add('light');});
     face.addEventListener('mouseleave',function(){cur.classList.remove('light');});
+    face.querySelectorAll('img').forEach(function(im){im.alt=(proj.title||'').replace('\n',' ')+' — '+proj.sub;});
     slot.appendChild(face);ring.appendChild(slot);
   });
   updateZ();
@@ -512,7 +598,7 @@ function runIntro(){
 
 build();
 window.addEventListener('resize',build);
-runIntro();
+startIntro(runIntro);
 
 scene.addEventListener('mousedown',function(e){
   if(isOpen)return;
@@ -549,7 +635,8 @@ window.addEventListener('touchmove',function(e){
   var now=performance.now();velX=(d-lastX)/Math.max(now-lastT,1);lastX=d;lastT=now;
   targetSpin=startSpin+d/window.innerWidth*360*0.7;
   spinAngle=targetSpin;ring.style.transform='rotateY('+spinAngle+'deg)';updateZ();
-},{passive:true});
+  if(e.cancelable)e.preventDefault(); // Safari: kein Scrollen/Gummiband/Neuladen, solange das Karussell dreht
+},{passive:false});
 window.addEventListener('touchend',function(){
   isDragging=false;targetSpin+=velX*25;targetSpin=Math.round(targetSpin/STEP)*STEP;ease();
 });
@@ -590,7 +677,7 @@ function makeMuteBtn(vidEl){
   return btn;
 }
 
-function buildOverlayHTML(proj){
+function buildOverlayInner(proj){
 
   // ── Little Game: Real or AI? (Swipe-Spiel) ────────────────────
   if(proj.id==='little-game'){
@@ -707,6 +794,9 @@ function buildOverlayHTML(proj){
   }
 
   // ── Kalender: 2er-Reihen + _11 bildschirmfüllend unten ───────
+  if(proj.id==='kalender'&&!RM){ buildKalender(proj); return; }
+  if(proj.id==='georgia-web'){ buildGeorgiaWeb(proj); return; }
+  if(proj.id==='tiktok'){ buildTikTok(proj); return; }
   if(proj.id==='kalender'){
     var allImgs=proj.media.filter(function(m){return m.type==='img';});
     var lastImg=allImgs[10]; // kalender_11 querformat
@@ -716,7 +806,7 @@ function buildOverlayHTML(proj){
 
     var content=document.createElement('div');
     content.className='ov-content';
-    content.innerHTML='<p class="ov-desc">'+proj.body+'</p>'
+    content.innerHTML=titleHTML(proj)+'<p class="ov-desc">'+proj.body+'</p>'
       +'<div class="ov-cols">'
       +'<div><span class="ov-col-label">Client</span><span class="ov-col-val">'+proj.client+'</span></div>'
       +'<div><span class="ov-col-label">Year</span><span class="ov-col-val">'+proj.year+'</span></div>'
@@ -754,7 +844,7 @@ function buildOverlayHTML(proj){
   // ── Standard Layout ───────────────────────────────────────────
   var content=document.createElement('div');
   content.className='ov-content';
-  content.innerHTML='<p class="ov-desc">'+proj.body+'</p>'
+  content.innerHTML=titleHTML(proj)+'<p class="ov-desc">'+proj.body+'</p>'
     +'<div class="ov-cols">'
     +'<div><span class="ov-col-label">Client</span><span class="ov-col-val">'+proj.client+'</span></div>'
     +'<div><span class="ov-col-label">Year</span><span class="ov-col-val">'+proj.year+'</span></div>'
@@ -769,12 +859,13 @@ function buildOverlayHTML(proj){
 
     if(m.type==='video'){
       var vid=document.createElement('video');
-      vid.src=m.src;
-      vid.autoplay=true;
+      vid.dataset.src=m.src;
+      vid.preload='none';
+      if(m.ar)vid.style.aspectRatio=m.ar;
       vid.muted=true;
       vid.loop=true;
       vid.playsInline=true;
-      vid.style.cssText='width:100%;height:auto;display:block;';
+      vid.style.width='100%';vid.style.height='auto';vid.style.display='block';
       item.appendChild(vid);
       item.appendChild(makeMuteBtn(vid));
     } else {
@@ -798,10 +889,14 @@ function openProject(proj,clickedFace){
   ring.querySelectorAll('.face').forEach(function(f){
     if(f!==clickedFace){f.style.opacity='0';f.style.transition='opacity 0.3s ease';}
   });
-  buildOverlayHTML(proj);
-  ovEl.scrollTop=0;
   ovEl.classList.add('open');
   closeBtn.classList.add('on');
+  showProject(proj);
+}
+
+function showProject(proj){
+  buildOverlayHTML(proj);
+  ovEl.scrollTop=0;
   navProject.textContent=' / '+(proj.title||'').replace('\n',' ');
   navProject.classList.add('visible');
   setTimeout(function(){
@@ -809,6 +904,7 @@ function openProject(proj,clickedFace){
     var g=ovEl.querySelector('.ov-grid');
     if(c)c.classList.add('visible');
     if(g)g.classList.add('visible');
+    ovEl.querySelectorAll('.ov-title').forEach(function(x){x.classList.add('in');});
     observeGridItems();
   },60);
 }
@@ -889,7 +985,7 @@ document.getElementById('impressumLink').addEventListener('click',function(e){
     +'<p class="ov-desc" style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b0b0b0;margin-bottom:48px;">Imprint &amp; Privacy Policy</p>'
 
     +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Provider (according to § 5 DDG)</p>'
-    +'<p class="ov-desc" style="color:#0a0a0a;margin-bottom:48px;">Oussama El Hamli<br>Friesickestraße 24<br>13086 Berlin, Germany<br><a href="mailto:elhamli@outlook.de" style="color:inherit;">elhamli@outlook.de</a><br>+49 159 0103 4560<br>Freelance Communication Designer</p>'
+    +'<p class="ov-desc" style="color:#0a0a0a;margin-bottom:48px;">Oussama El Hamli<br>Friesickestraße 24<br>13086 Berlin, Germany<br><a href="mailto:elhamli@outlook.de" style="color:inherit;">elhamli@outlook.de</a><br>Freelance Communication Designer</p>'
 
     +'<p class="ov-desc" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;">Liability for Content and Links</p>'
     +'<p class="ov-desc" style="margin-bottom:48px;">Contents of these pages are created with great care, but no guarantee for accuracy or completeness is given. As a service provider, I am responsible for my own content under general laws. I am not liable for external links; the respective providers are solely responsible for their content. Unlawful links will be removed immediately upon knowledge.</p>'
@@ -1116,6 +1212,203 @@ function observeGridItems(){
 var cl=document.getElementById('clock');
 function tick(){cl.textContent=new Date().toLocaleTimeString('de-DE');}
 tick();setInterval(tick,1000);
+/* ══ Erweiterungen 10/2026: Titel, Finale, Bühnen, Intro, Videos ══ */
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+// Großer Projekttitel, Zeilen aus der Maske
+function titleHTML(proj){
+  var lines=String(proj.title||'').split('\n');
+  return '<h1 class="ov-title">'+lines.map(function(l,i){
+    return '<span class="ln"><span>'+esc(l)+(i===lines.length-1?'<span class="dot">.</span>':'')+'</span></span>';
+  }).join('')+'</h1>';
+}
+
+// Scroll-gebundene Bewegungen im Overlay
+var ovScrollFns=[];
+var ovTick=false;
+ovEl.addEventListener('scroll',function(){
+  if(ovTick)return;ovTick=true;
+  requestAnimationFrame(function(){ovTick=false;ovScrollFns.forEach(function(f){f();});});
+});
+function progressOf(stage){ // 0 → Bühne oben angekommen, 1 → Bühne durchgescrollt
+  var r=stage.getBoundingClientRect();
+  var range=stage.offsetHeight-window.innerHeight;
+  return Math.min(1,Math.max(0,-r.top/Math.max(range,1)));
+}
+function easeOut3(x){return 1-Math.pow(1-x,3);}
+
+// Videos erst laden und abspielen, wenn sie ins Bild kommen
+var vidObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    var v=en.target.querySelector('video');if(!v)return;
+    if(en.isIntersecting){
+      if(!v.getAttribute('src')&&v.dataset.src){v.src=v.dataset.src;}
+      var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});
+    } else { v.pause(); }
+  });
+},{root:ovEl,rootMargin:'200px 0px',threshold:0.01});
+
+// Wrapper: baut das Projekt, hängt Finale an, setzt Alt-Texte, startet Beobachter
+function buildOverlayHTML(proj){
+  ovScrollFns=[];
+  vidObs.disconnect();
+  ovEl.innerHTML='';
+  buildOverlayInner(proj);
+  var name=(proj.title||'').replace('\n',' ');
+  ovEl.querySelectorAll('img').forEach(function(im,i){if(!im.alt)im.alt=name+' — '+(i+1);});
+  ovEl.appendChild(finaleEl(proj));
+  ovEl.querySelectorAll('video[data-src]').forEach(function(v){vidObs.observe(v.parentElement);});
+  ovScrollFns.forEach(function(f){f();});
+}
+
+function finaleEl(proj){
+  var i=PROJECTS.indexOf(proj),next=PROJECTS[(i+1)%PROJECTS.length];
+  var f=document.createElement('section');
+  f.className='ov-finale';
+  f.innerHTML='<span class="ov-lbl">Next project</span>'
+    +'<a href="#" class="ov-next">'+esc((next.title||'').replace('\n',' '))+' <span class="arr">&rarr;</span></a>'
+    +'<span class="ov-lbl">Available for</span>'
+    +'<div class="ov-cta"><p>Social content for bars &amp; venues<br>Brand identity &amp; motion — Berlin, ongoing or per project</p>'
+    +'<a class="ov-mail" href="mailto:elhamli@outlook.de">elhamli@outlook.de</a></div>'
+    +'<div class="ov-foot"><span>&copy; 2026 Oussama El Hamli</span><span>Berlin</span></div>';
+  var a=f.querySelector('.ov-next');
+  a.addEventListener('click',function(e){e.preventDefault();showProject(next);});
+  f.querySelectorAll('a').forEach(function(el){
+    el.addEventListener('mouseenter',function(){cur.classList.add('link');});
+    el.addEventListener('mouseleave',function(){cur.classList.remove('link');});
+  });
+  return f;
+}
+
+function contentEl(proj,extra){
+  var c=document.createElement('div');
+  c.className='ov-content';
+  c.innerHTML=titleHTML(proj)+'<p class="ov-desc">'+proj.body+'</p>'+(extra||'')
+    +'<div class="ov-cols"><div><span class="ov-col-label">Client</span><span class="ov-col-val">'+esc(proj.client)+'</span></div>'
+    +'<div><span class="ov-col-label">Year</span><span class="ov-col-val">'+esc(proj.year)+'</span></div></div>';
+  return c;
+}
+
+// ── Georgia Website: Ebenen fächern sich beim Scrollen auf ─────────
+function buildGeorgiaWeb(proj){
+  ovEl.appendChild(contentEl(proj));
+  var stage=document.createElement('div');stage.className='gw-stage';
+  var st=document.createElement('div');st.className='gw-sticky';stage.appendChild(st);
+  var imgs=proj.media.filter(function(m){return m.type==='img';});
+  var layers=imgs.map(function(m,i){
+    var l=document.createElement('div');l.className='gw-layer';
+    var im=document.createElement('img');im.src=m.src;im.loading='lazy';l.appendChild(im);
+    st.appendChild(l);return l;
+  });
+  var cap=document.createElement('div');cap.className='gw-cap';
+  cap.innerHTML='<span>Live — 2026</span><a href="https://www.georgiabar.de" target="_blank" rel="noopener noreferrer">georgiabar.de &#8599;</a>';
+  st.appendChild(cap);
+  ovEl.appendChild(stage);
+  function upd(){
+    var p=RM?1:easeOut3(progressOf(stage));
+    var mob=window.innerWidth<=600;
+    layers.forEach(function(l,i){
+      var k=i-(layers.length-1)/2; // -1,0,1
+      // Anfang: gestapelt und gekippt · Ende: flach nebeneinander (Handy: untereinander)
+      var tx= mob?0:k*0.32*window.innerWidth*p;
+      var ty= mob?k*0.3*window.innerHeight*p:k*18*(1-p)-30*(1-p);
+      var tz= (i-(layers.length-1))*90*(1-p);
+      var rx= 50*(1-p), rz=-12*(1-p);
+      var s = mob?1-0.15*p:1-0.5*p;
+      l.style.transform='translate(-50%,-50%) translate('+tx+'px,'+ty+'px) translateZ('+tz+'px) rotateX('+rx+'deg) rotateZ('+rz+'deg) scale('+s+')';
+      l.style.zIndex=10+i;
+    });
+  }
+  ovScrollFns.push(upd);
+  window.addEventListener('resize',upd);
+}
+
+// ── TikTok: Zahlen zählen hoch, Videos im Handyformat ────────────
+var TT_STATS=[[15132386,'Video views'],[320517,'Likes'],[81466,'Shares'],[66034,'Profile views'],[7155,'Comments']];
+function buildTikTok(proj){
+  var c=document.createElement('div');c.className='ov-content';
+  c.innerHTML=titleHTML(proj)+'<div class="ov-cols"><div><span class="ov-col-label">Client</span><span class="ov-col-val">'+esc(proj.client)+'</span></div><div><span class="ov-col-label">Year</span><span class="ov-col-val">'+esc(proj.year)+'</span></div><div><span class="ov-col-label">Discipline</span><span class="ov-col-val">'+esc(proj.discipline)+'</span></div></div>';
+  ovEl.appendChild(c);
+  var s=document.createElement('div');s.className='tt-stage';
+  s.innerHTML='<span class="ov-lbl">'+TT_STATS[0][1]+'</span><div class="tt-big" data-n="'+TT_STATS[0][0]+'">0</div>'
+    +'<div class="tt-row">'+TT_STATS.slice(1).map(function(x){return '<div><div class="tt-num" data-n="'+x[0]+'">0</div><span class="ov-lbl">'+x[1]+'</span></div>';}).join('')+'</div>';
+  ovEl.appendChild(s);
+  var ph=document.createElement('div');ph.className='tt-phones';
+  proj.media.forEach(function(m){
+    if(m.type!=='video')return;
+    var item=document.createElement('div');item.className='tt-phone ov-grid-item';
+    var v=document.createElement('video');v.dataset.src=m.src;v.preload='none';v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');
+    item.appendChild(v);item.appendChild(makeMuteBtn(v));ph.appendChild(item);
+  });
+  ovEl.appendChild(ph);
+  var done=false;
+  var io=new IntersectionObserver(function(en){
+    if(!en[0].isIntersecting||done)return;done=true;io.disconnect();
+    s.querySelectorAll('[data-n]').forEach(function(el){countUp(el,+el.dataset.n);});
+  },{root:ovEl,threshold:0.3});
+  io.observe(s);
+}
+function countUp(el,n){
+  var fmt=function(x){return Math.round(x).toLocaleString('en-US');};
+  if(RM){el.textContent=fmt(n);return;}
+  var t0=performance.now(),dur=1800;
+  (function step(now){
+    var k=Math.min(1,(now-t0)/dur);el.textContent=fmt(n*(1-Math.pow(2,-10*k)));
+    if(k<1)requestAnimationFrame(step);else el.textContent=fmt(n);
+  })(t0);
+}
+
+// ── Kalender: echtes Format, Blätter klappen beim Scrollen nach oben ──
+function buildKalender(proj){
+  ovEl.appendChild(contentEl(proj));
+  var imgs=proj.media.filter(function(m){return m.type==='img';});
+  var pages=imgs.slice(0,10),last=imgs[10];
+  var stage=document.createElement('div');stage.className='kc-stage';
+  stage.style.height=(100+pages.length*45)+'vh';
+  var st=document.createElement('div');st.className='kc-sticky';stage.appendChild(st);
+  var cal=document.createElement('div');cal.className='kc-cal';st.appendChild(cal);
+  var bind=document.createElement('div');bind.className='kc-bind';cal.appendChild(bind);
+  var els=pages.map(function(m,i){
+    var pg=document.createElement('div');pg.className='kc-page';pg.style.zIndex=String(pages.length-i);
+    var im=document.createElement('img');im.src=m.src;if(i>1)im.loading='lazy';pg.appendChild(im);
+    cal.appendChild(pg);return pg;
+  });
+  var cnt=document.createElement('div');cnt.className='kc-count';st.appendChild(cnt);
+  ovEl.appendChild(stage);
+  if(last){
+    var hero=document.createElement('div');hero.className='kc-hero';
+    var hi=document.createElement('img');hi.src=last.src;hi.loading='lazy';hero.appendChild(hi);
+    ovEl.appendChild(hero);
+  }
+  function upd(){
+    var p=progressOf(stage)*(pages.length-1);
+    var shown=0;
+    els.forEach(function(pg,i){
+      var k=Math.min(1,Math.max(0,p-i));
+      pg.style.transform='translateZ('+(-i*0.6)+'px) rotateX('+(k*178)+'deg)'; // Blatt klappt zum Betrachter hoch. Im 3D-Raum zählt die Tiefe, nicht der z-index
+      if(k<0.5&&!shown)shown=i+1;
+    });
+    cnt.textContent=String(shown||pages.length).padStart(2,'0')+' / '+String(pages.length).padStart(2,'0');
+  }
+  ovScrollFns.push(upd);
+}
+
+// ── Intro: Name groß, dann übergibt er an den Ring (≤ 1,5 s, einmal pro Sitzung) ──
+function startIntro(then){
+  var seen=false;
+  try{seen=sessionStorage.getItem('oeh-intro')==='1';sessionStorage.setItem('oeh-intro','1');}catch(e){}
+  if(RM||seen){then();return;}
+  var el=document.createElement('div');el.id='intro';
+  el.innerHTML=titleHTML({title:'Oussama\nEl Hamli'})+'<div class="meta"><span>Communication Design</span><span>Berlin</span></div>';
+  document.body.appendChild(el);
+  var h=el.querySelector('.ov-title');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){h.classList.add('in');});});
+  setTimeout(function(){el.classList.add('out');},950);
+  setTimeout(function(){el.classList.add('gone');then();},1250);
+  setTimeout(function(){el.remove();},1800);
+}
+
 </script>
 </body>
 </html>
